@@ -6,7 +6,8 @@
 
 body {
   margin: 0;
-  font-family: "Lexend Zetta", sans-serif;
+  font-family: "Bungee Outline", cursive;
+  font-size: 25px;
   background: #3b4465;
 }
 
@@ -64,7 +65,7 @@ body {
   padding: 0;
   text-transform: uppercase;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 26px;
   letter-spacing: 0.5px;
   color: #999;
   background-color: transparent;
@@ -235,8 +236,8 @@ body {
 }
 
 .input-block label {
-  font-size: 14px;
-  color: #a1b4b4;
+  font-size: 20px;
+  color: #000000;
 }
 
 .input-block input {
@@ -282,4 +283,8 @@ body {
   background: #fbfdff;
   box-shadow: inset 0 0 0 2px #a7e245;
   transform: translateX(30%);
+}
+.quote {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 25px;
 }
