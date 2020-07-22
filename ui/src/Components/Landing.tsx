@@ -22,15 +22,8 @@ export const Landing: FC = () => {
       password,
       username,
     };
-
-    axios({
-      method: "post",
-      url: `http://localhost:4000/${view}`,
-      data: form,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
+    axios
+      .post(`http://localhost:4000/${view}`, form)
       .then((res) => {
         console.log(res.data);
       })
