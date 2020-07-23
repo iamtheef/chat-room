@@ -36,7 +36,8 @@ app.post("/login", async (req, res) => {
   User.findOne({ email: email })
     .then(async (user) => {
       if (await compare(password, user.password)) {
-        res.send("cookieValue");
+        const { username, contacts } = user;
+        res.send({ username, contacts });
       } else {
         res.send("wrong credits");
       }

@@ -1,19 +1,17 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import { Form } from "../types";
+import { UserContext } from "../Context/User";
 
-interface Form {
-  email: string;
-  password: string;
-  username?: string;
-}
 export const Landing: FC = () => {
+  const { setUser } = useContext(UserContext);
   const [view, setView] = useState("login");
-
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
+  const history = useHistory();
 
   function submit(e: any) {
     e.preventDefault();
@@ -25,7 +23,8 @@ export const Landing: FC = () => {
     axios
       .post(`http://localhost:4000/${view}`, form)
       .then((res) => {
-        alert(res.data || res.data.cookie);
+        setUser(res.data);
+        history.push("/main");
       })
       .catch((e) => {
         alert("there was something wrong!\n" + e);
