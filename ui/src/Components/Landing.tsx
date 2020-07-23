@@ -25,10 +25,10 @@ export const Landing: FC = () => {
     axios
       .post(`http://localhost:4000/${view}`, form)
       .then((res) => {
-        console.log(res.data);
+        alert(res.data || res.data.cookie);
       })
       .catch((e) => {
-        console.log("there was something wrong!");
+        alert("there was something wrong!\n" + e);
       });
   }
 

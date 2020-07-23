@@ -1,5 +1,6 @@
 import User from "./models/User";
 import { connectDB, app } from "./configuration";
+import { compare, hashSync } from "bcryptjs";
 
 (async () => {
   connectDB();
@@ -8,19 +9,40 @@ import { connectDB, app } from "./configuration";
   });
 })();
 
-app.get("/", (req, res) => {
-  res.send("Hello all possible worlds");
+app.post("/register", async (req, res) => {
+  let existingUser = await User.findOne({ email: req.body.email });
+  if (!existingUser) {
+    const user = await new User({
+      ...req.body,
+      password: hashSync(req.body.password, 10),
+    }).save();
+    user
+      .save()
+      .then((user) => {
+        if (user) {
+          res.send("WELCOME!");
+          return;
+        }
+      })
+      .catch((e) => res.send(e));
+  } else {
+    res.send("You are already signed!");
+    return;
+  }
 });
 
-app.post("/register", (req, res) => {
-  const user = new User({ ...req.body });
-  user
-    .save()
-    .then((user) => res.send(user))
-    .catch((e) => res.send(e));
-});
-
-app.post("/login", (req, res) => {
-  console.log(req.body);
-  res.send("MDMA");
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  User.findOne({ email: email })
+    .then(async (user) => {
+      if (await compare(password, user.password)) {
+        res.send("cookieValue");
+      } else {
+        res.send("wrong credits");
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+      res.send("wrong credits");
+    });
 });

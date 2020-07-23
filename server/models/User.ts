@@ -1,4 +1,5 @@
 import { createSchema, Type, typedModel } from "ts-mongoose";
+const { floor, random } = Math;
 
 const icons = [
   "https://maxcdn.icons8.com/Share/icon/ios7/Cinema/anonymous_mask1600.png",
@@ -12,10 +13,10 @@ const UserSchema = createSchema(
     username: Type.string({ required: true }),
     password: Type.string({ required: true }),
     contacts: Type.array().of({
-      id: Type.string({ required: true, unique: true, default: [] }),
+      id: Type.string({ unique: true }),
     }),
     date: Type.date({ default: Date.now as any }),
-    avatar: Type.string({ default: icons[Math.random()] }),
+    avatar: Type.string({ default: icons[floor(random() * icons.length)] }),
   },
   { timestamps: { createdAt: true } }
 );
