@@ -1,24 +1,37 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import User from "../../../server/models/User";
 import axios from "axios";
+import { UserContext } from "../Context/User";
+import { ContactsContext } from "../Context/Contacts";
 
 export const Search: FC = () => {
+  const { user } = useContext(UserContext);
+  const { setContacts } = useContext(ContactsContext);
   const [results, setResults] = useState<any>([]);
   const [term, setTerm] = useState<string>("");
 
   useEffect(() => {
-    axios.post("http://localhost:4000/search", { term: term }).then((users) => {
-      setResults(users.data);
-    });
+    search();
   }, [term]);
 
-  //   const add = (currentUser: string, add: string) => {
-  //     axios
-  //       .post("http://localhost:4000/add", { currentUser, add })
-  //       .then((contacts) => {
-  //         setResults(contacts.data);
-  //       });
-  //   };
+  const search = () => {
+    if (term.length > 4) {
+      axios
+        .post("http://localhost:4000/search", { term: term })
+        .then((users) => {
+          setResults(users.data);
+        });
+    }
+  };
+
+  const add = (add: string) => {
+    const { _id } = user;
+    axios.post("http://localhost:4000/add", { _id, add }).then((contacts) => {
+      if (contacts.data) {
+        setContacts(contacts.data);
+      }
+    });
+  };
 
   return (
     <div className="search-box">
@@ -45,7 +58,7 @@ export const Search: FC = () => {
                 alt="user img"
               />
               <p>{user.username}</p>
-              <button>Add</button>
+              <button onClick={() => add(user._id.toString())}>Add</button>
             </li>
           ))}
         </ul>

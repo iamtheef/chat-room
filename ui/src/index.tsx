@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { UserProvider } from "./Context/User";
+import { ContactsProvider } from "./Context/Contacts";
 
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
-      <App />
+      <ContactsProvider>
+        <App />
+      </ContactsProvider>
     </UserProvider>
   </React.StrictMode>,
   document.getElementById("root")

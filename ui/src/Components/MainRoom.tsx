@@ -4,15 +4,13 @@ import { Contacts } from "./Contacts";
 import { Redirect } from "react-router-dom";
 import User from "../../../server/models/User";
 import axios from "axios";
-
 import { UserContext } from "../Context/User";
 
 export const MainRoom: FC = () => {
-  const user = { username: "iamtheef", contacts: [{ username: "bill" }] };
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
-    <div>
+    <div className="main-room">
       {user ? (
         <div>
           <h1>WELCOME {user.username}</h1>
