@@ -23,8 +23,12 @@ export const Landing: FC = () => {
     axios
       .post(`http://localhost:4000/${view}`, form)
       .then((res) => {
-        setUser(res.data);
-        history.push("/main");
+        if (res.data.logged) {
+          setUser(res.data.user);
+          history.push("/main");
+        } else {
+          alert(res.data.msg);
+        }
       })
       .catch((e) => {
         alert("there was something wrong!\n" + e);

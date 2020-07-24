@@ -6,7 +6,7 @@ import { Route, Switch, HashRouter, Redirect } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App container">
       <HashRouter>
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/login" />} />

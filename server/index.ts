@@ -20,30 +20,43 @@ app.post("/register", async (req, res) => {
       .save()
       .then((user) => {
         if (user) {
-          res.send("WELCOME!");
+          res.send({ logged: true, msg: "WELCOME" });
           return;
         }
       })
       .catch((e) => res.send(e));
   } else {
-    res.send("You are already signed!");
+    res.send({ logged: false, msg: "YOU ARE ALREADY SIGNED" });
     return;
   }
 });
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  User.findOne({ email: email })
+  await User.findOne({ email: email })
+    .populate("contacts")
     .then(async (user) => {
       if (await compare(password, user.password)) {
         const { username, contacts } = user;
-        res.send({ username, contacts });
+        res.send({ logged: true, user: { username, contacts } });
       } else {
-        res.send("wrong credits");
+        res.send({ logged: false, msg: "WRONG CREDENTIALS" });
       }
     })
     .catch((e) => {
       console.error(e);
-      res.send("wrong credits");
+      res.send({ logged: false, msg: "WRONG CREDENTIALS" });
     });
+});
+
+app.post("/search", async (req, res) => {
+  const users = await User.find({ username: req.body.term });
+  res.send(users);
+});
+
+app.post("/add", async (req, res) => {
+  const { current, add } = req.body;
+
+  const currentUser = await User.findById(current);
+  const addUser = await User.findById(add);
 });

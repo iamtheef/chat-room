@@ -12,8 +12,8 @@ const UserSchema = createSchema(
     email: Type.string({ required: true, unique: true }),
     username: Type.string({ required: true }),
     password: Type.string({ required: true }),
-    contacts: Type.array().of({
-      id: Type.string({ unique: true }),
+    contacts: Type.array({ default: [] }).of({
+      id: Type.string({ required: true, unique: true }),
     }),
     date: Type.date({ default: Date.now as any }),
     avatar: Type.string({ default: icons[floor(random() * icons.length)] }),
