@@ -1,37 +1,24 @@
 import React, { FC, useState, useEffect, useContext } from "react";
 import User from "../../../server/models/User";
 import axios from "axios";
-import { UserContext } from "../Context/User";
 import { ContactsContext } from "../Context/Contacts";
 
 export const Search: FC = () => {
-  const { user } = useContext(UserContext);
-  const { setContacts } = useContext(ContactsContext);
+  const { add } = useContext(ContactsContext);
   const [results, setResults] = useState<any>([]);
   const [term, setTerm] = useState<string>("");
 
   useEffect(() => {
-    search();
-  }, [term]);
-
-  const search = () => {
-    if (term.length > 4) {
+    if (term === "" || term.length <= 3) {
+      setResults([]);
+    } else {
       axios
         .post("http://localhost:4000/search", { term: term })
         .then((users) => {
           setResults(users.data);
         });
     }
-  };
-
-  const add = (add: string) => {
-    const { _id } = user;
-    axios.post("http://localhost:4000/add", { _id, add }).then((contacts) => {
-      if (contacts.data) {
-        setContacts(contacts.data);
-      }
-    });
-  };
+  }, [term]);
 
   return (
     <div className="search-box">
@@ -43,9 +30,6 @@ export const Search: FC = () => {
           required
           onChange={(e) => setTerm(e.target.value)}
         />
-        <button className="search-btn" type="submit">
-          <span>Search</span>
-        </button>
       </form>
 
       <div>

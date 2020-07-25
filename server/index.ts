@@ -60,7 +60,26 @@ app.post("/add", async (req, res) => {
   currentUser.contacts.push(addUser._id);
   currentUser
     .save()
-    .then((conts) => {
+    .then((response) => {
+      res.send(true);
+    })
+    .catch((e) => {
+      console.log(e);
+      res.send(false);
+    });
+});
+
+app.post("/remove", async (req, res) => {
+  const { _id, id } = req.body;
+  const currentUser = await User.findById(_id);
+  for (let i = 0; i < currentUser.contacts.length; i++) {
+    if (currentUser.contacts[i] == id) {
+      currentUser.contacts.splice(i, 1);
+    }
+  }
+  currentUser
+    .save()
+    .then((response) => {
       res.send(true);
     })
     .catch((e) => {
@@ -73,9 +92,8 @@ app.post("/getcontacts", (req, res) => {
   const { id } = req.body;
   User.findById(id)
     .populate("contacts")
-    .then((contacts) => {
-      console.log(contacts);
-      res.send(contacts);
+    .then((user) => {
+      res.send(user.contacts);
     })
     .catch((e) => {
       res.send([]);
