@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useContext } from "react";
 import User from "../../../server/models/User";
-import axios from "axios";
+import { client } from "../Utils/AxiosClient";
 import { ContactsContext } from "../Context/Contacts";
 
 export const Search: FC = () => {
@@ -12,11 +12,9 @@ export const Search: FC = () => {
     if (term === "" || term.length <= 3) {
       setResults([]);
     } else {
-      axios
-        .post("http://localhost:4000/search", { term: term })
-        .then((users) => {
-          setResults(users.data);
-        });
+      client.post("/search", { term: term }).then((users) => {
+        setResults(users.data);
+      });
     }
   }, [term]);
 

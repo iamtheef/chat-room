@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext } from "react";
 import User from "../../../server/models/User";
-import axios from "axios";
+import { client } from "../Utils/AxiosClient";
 import { UserContext } from "../Context/User";
 
 type Props = {
@@ -14,16 +14,14 @@ export function ContactsProvider({ children }: Props) {
   const { user } = useContext(UserContext);
 
   const getContacts = () => {
-    axios
-      .post("http://localhost:4000/getcontacts", { id: user._id })
-      .then((contacts) => {
-        setContacts(contacts.data);
-      });
+    client.post("/getcontacts", { id: user._id }).then((contacts) => {
+      setContacts(contacts.data);
+    });
   };
 
   const add = (add: string) => {
     const { _id } = user;
-    axios.post("http://localhost:4000/add", { _id, add }).then((contacts) => {
+    client.post("/add", { _id, add }).then((contacts) => {
       if (contacts.data) {
         getContacts();
       }
@@ -32,7 +30,7 @@ export function ContactsProvider({ children }: Props) {
 
   const remove = (id: string) => {
     const { _id } = user;
-    axios.post("http://localhost:4000/remove", { _id, id }).then((contacts) => {
+    client.post("/remove", { _id, id }).then((contacts) => {
       if (contacts.data) {
         getContacts();
       }

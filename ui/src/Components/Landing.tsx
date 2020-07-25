@@ -1,40 +1,27 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
-import { Form } from "../types";
 import { UserContext } from "../Context/User";
 
 export const Landing: FC = () => {
-  const { setUser } = useContext(UserContext);
+  const { submit, user } = useContext(UserContext);
   const [view, setView] = useState("login");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const history = useHistory();
 
-  function submit(e: any) {
-    e.preventDefault();
-    let form: Form = {
-      email,
-      password,
-      username,
-    };
-    axios
-      .post(`http://localhost:4000/${view}`, form)
-      .then((res) => {
-        if (res.data.logged) {
-          setUser(res.data.user);
-          history.push("/main");
-        } else {
-          alert(res.data.msg);
-        }
-      })
-      .catch((e) => {
-        alert("there was something wrong!\n" + e);
-      });
-  }
+  const form = {
+    email,
+    password,
+    username,
+  };
 
+  useEffect(() => {
+    if (user) {
+      history.push("/main");
+    }
+  }, [user, history]);
   return (
     <div>
       <section className="forms-section">
@@ -76,7 +63,7 @@ export const Landing: FC = () => {
               <button
                 className="btn-login"
                 type="submit"
-                onClick={(e) => submit(e)}
+                onClick={(e) => submit(e, form, view)}
               >
                 Login
               </button>
@@ -126,7 +113,7 @@ export const Landing: FC = () => {
               <button
                 type="submit"
                 className="btn-signup"
-                onClick={(e) => submit(e)}
+                onClick={(e) => submit(e, form, view)}
               >
                 Continue
               </button>

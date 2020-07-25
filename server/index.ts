@@ -37,6 +37,7 @@ app.post("/login", async (req, res) => {
     .then(async (user) => {
       if (await compare(password, user.password)) {
         const { username, _id } = user;
+
         res.send({ logged: true, user: { username, _id } });
       } else {
         res.send({ logged: false, msg: "WRONG CREDENTIALS" });
