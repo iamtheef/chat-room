@@ -1,11 +1,25 @@
-import { app } from "./configuration";
+import { server } from "./configuration";
 
-const server = require("http").createServer(app);
-const io = require("socket.io").listen(server);
-server.listen(4001);
+export const io = require("socket.io").listen(server);
 
 let connected = [];
-io.sockets.on("connection", (socket: any) => {
-  connected.push(socket);
-  console.log("Total users connected : ", connected.length);
-});
+
+export const socketServer = () => {
+  io.sockets.on("connection", (socket: any) => {
+    connected.push(socket);
+
+    socket.on("new-message", (msg: string, username: string) => {
+      io.emit("new-message", msg, username);
+      console.log(username, msg);
+    });
+
+    socket.on("connected");
+
+    socket.broadcast.emit("");
+
+    socket.on("disconnect", (socket: any) => {
+      io.emit("message", "left the chat");
+      connected.splice(connected.indexOf(socket), 1);
+    });
+  });
+};

@@ -1,12 +1,10 @@
 import { connectDB, app } from "./configuration";
 import { register, login } from "./user-functions";
 import { add, remove, getContacts, search } from "./contacts-functions";
-
+import { socketServer } from "./webSocket-server";
 (() => {
+  socketServer();
   connectDB();
-  app.listen(4000, () => {
-    console.log("server is up!");
-  });
 })();
 
 app.get("/", (req, res) => {
