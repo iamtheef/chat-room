@@ -75,3 +75,14 @@ code {
 .main-room {
   font-family: "Inconsolata", monospace;
 }
+
+.chatwin {
+  padding: 20px;
+  margin-top: -300px;
+  margin-left: 500px;
+  height: 550px;
+  width: 800px;
+  border: 2px solid #f1eeee;
+  font: 16px Arial, Serif;
+  overflow: auto;
+}

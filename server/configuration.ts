@@ -1,10 +1,9 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const dotenv = require("dotenv");
-export const app = express();
-dotenv.config();
+import * as mongoose from "mongoose";
+import * as cors from "cors";
+import * as bodyParser from "body-parser";
+export const app = require("express")();
+
+require("dotenv").config();
 
 export const connectDB = () => {
   mongoose.set("useCreateIndex", true);

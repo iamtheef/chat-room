@@ -15,7 +15,11 @@ export const Contacts: FC = () => {
       <h2>Contacts</h2>
       <ul style={{ listStyleType: "none" }}>
         {contacts.map((contact: typeof User) => (
-          <li key={`${contact._id}`} className="contact-item">
+          <li
+            key={`${contact._id}`}
+            className="contact-item"
+            onClick={() => console.log("fear projection")}
+          >
             <img
               className="user-icon"
               style={{ marginTop: "15px" }}

@@ -8,6 +8,7 @@
     "prod": "concurrently \"npm run prod --prefix server \" \"npm run build --prefix ui\""
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "concurrently": "5.2.0"
   }
 }
