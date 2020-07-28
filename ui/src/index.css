@@ -83,6 +83,18 @@ code {
   height: 550px;
   width: 800px;
   border: 2px solid #f1eeee;
-  font: 16px Arial, Serif;
   overflow: auto;
+}
+
+.message-list {
+}
+
+.message {
+  margin-top: -25px;
+  font-size: 20px;
+}
+
+.chat-icon {
+  max-width: 10px;
+  max-height: 10px;
 }
