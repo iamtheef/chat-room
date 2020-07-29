@@ -4,10 +4,10 @@ import { add, remove, getContacts, search } from "./contacts-functions";
 import { makeNewSocket } from "./webSocket-server";
 (() => {
   connectDB();
+  makeNewSocket();
 })();
 
 app.post("/newroom", async (req, res) => {
-  makeNewSocket();
   res.send(true);
 });
 

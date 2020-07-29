@@ -16,8 +16,17 @@ export const ChatWindow: FC = () => {
     setMessages([...messages, { username, message: msg }]);
   });
 
+  socket.on("connect", () => {
+    socket.emit("message", `${user.username}`);
+  });
+
+  socket.on("disconnect", () => {
+    socket.close();
+    socket.emit("message", `${user.username}`);
+  });
+
   socket.on("message", (msg: string) => {
-    alert(msg);
+    setMessages([...messages, { username: "", message: msg }]);
   });
 
   const listenForSubmit = (e: any) => {
