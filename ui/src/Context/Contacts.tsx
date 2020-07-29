@@ -37,9 +37,15 @@ export function ContactsProvider({ children }: Props) {
     });
   };
 
+  const makeNewRoom = () => {
+    client.post("/newroom").then((answer) => {
+      console.log(answer.data);
+    });
+  };
+
   return (
     <ContactsContext.Provider
-      value={{ contacts, setContacts, getContacts, add, remove }}
+      value={{ contacts, setContacts, getContacts, add, remove, makeNewRoom }}
     >
       {children}
     </ContactsContext.Provider>

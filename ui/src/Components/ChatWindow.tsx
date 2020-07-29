@@ -1,17 +1,16 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useState, useEffect } from "react";
 import io from "socket.io-client";
 import { UserContext } from "../Context/User";
 
-export const ChatWindow: FC = () => {
-  interface Message {
-    username: string;
-    message: string;
-  }
+interface Message {
+  username: string;
+  message: string;
+}
+const socket = io("http://localhost:4000");
 
+export const ChatWindow: FC = () => {
   const { user } = useContext(UserContext);
   const [messages, setMessages] = useState<Message[]>([]);
-
-  const socket = io("http://localhost:4000");
 
   socket.on("new-message", (username: string, msg: string) => {
     setMessages([...messages, { username, message: msg }]);
@@ -27,13 +26,15 @@ export const ChatWindow: FC = () => {
       e.target.value = "";
     }
   };
-
   return (
     <div className="chatwin">
       <ul style={{ listStyleType: "none" }}>
         {messages.map((msg, i) => (
           <li key={i} className="message-list">
-            <h4>{msg.username}</h4>
+            {(i === 0 || messages[i].username !== messages[i - 1].username) && (
+              <h4>{msg.username}</h4>
+            )}
+
             <p className="message">{msg.message}</p>
           </li>
         ))}

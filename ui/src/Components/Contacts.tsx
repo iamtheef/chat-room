@@ -3,7 +3,9 @@ import User from "../../../server/models/User";
 import { ContactsContext } from "../Context/Contacts";
 
 export const Contacts: FC = () => {
-  const { contacts, getContacts, remove } = useContext(ContactsContext);
+  const { contacts, getContacts, remove, makeNewRoom } = useContext(
+    ContactsContext
+  );
 
   useEffect(() => {
     getContacts();
@@ -18,7 +20,7 @@ export const Contacts: FC = () => {
           <li
             key={`${contact._id}`}
             className="contact-item"
-            onClick={() => console.log("fear projection")}
+            onClick={() => makeNewRoom()}
           >
             <img
               className="user-icon"

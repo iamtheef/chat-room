@@ -82,19 +82,27 @@ code {
   margin-left: 500px;
   height: 550px;
   width: 800px;
-  border: 2px solid #f1eeee;
+  border: 1px solid #f1eeee;
   overflow: auto;
 }
 
 .message-list {
+  bottom: 100px;
 }
 
 .message {
-  margin-top: -25px;
   font-size: 20px;
 }
 
 .chat-icon {
   max-width: 10px;
   max-height: 10px;
+}
+
+.editor {
+  width: 600px;
+  height: 50px;
+  margin-top: 450px;
+  position: fixed;
+  bottom: 70px;
 }
