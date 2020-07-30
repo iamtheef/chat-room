@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
+import { Route, Switch, HashRouter, Redirect } from "react-router-dom";
 import { Landing } from "./Components/Landing";
 import { MainRoom } from "./Components/MainRoom";
-import { Route, Switch, HashRouter, Redirect } from "react-router-dom";
 
 function App() {
   return (

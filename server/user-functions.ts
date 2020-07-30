@@ -25,18 +25,15 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  User.findOne({ email: email })
-    .then(async (user) => {
-      if (await compare(password, user.password)) {
-        const { username, _id } = user;
-
-        res.send({ logged: true, user: { username, _id } });
-      } else {
-        res.send({ logged: false, msg: "WRONG CREDENTIALS" });
-      }
-    })
-    .catch((e) => {
-      console.error(e);
+  const user = await User.findOne({ email: email });
+  if (user) {
+    if (await compare(password, user.password)) {
+      const { username, _id } = user;
+      res.send({ logged: true, user: { username, _id } });
+    } else {
       res.send({ logged: false, msg: "WRONG CREDENTIALS" });
-    });
+    }
+  } else {
+    res.send({ logged: false, msg: "WRONG CREDENTIALS" });
+  }
 };

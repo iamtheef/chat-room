@@ -12,44 +12,43 @@ export const ChatWindow: FC = () => {
   const { user } = useContext(UserContext);
   const [messages, setMessages] = useState<Message[]>([]);
 
-  socket.on("new-message", (username: string, msg: string) => {
-    setMessages([...messages, { username, message: msg }]);
-  });
-
-  socket.on("connect", () => {
-    socket.emit("message", `${user.username}`);
-  });
-
-  socket.on("disconnect", () => {
-    socket.close();
-    socket.emit("message", `${user.username}`);
-  });
-
-  socket.on("message", (msg: string) => {
-    setMessages([...messages, { username: "", message: msg }]);
-  });
+  useEffect(() => {
+    socket.on("message", (username: string, msg: string) => {
+      setMessages((prevState) => [...prevState, { username, message: msg }]);
+    });
+    return () => {
+      socket.off("message");
+    };
+  }, []);
 
   const listenForSubmit = (e: any) => {
     if (e.keyCode === 13) {
       socket.emit("incoming", e.target.value, user.username);
       e.target.value = "";
+      e.target.focus();
     }
   };
+
   return (
-    <div className="chatwin">
-      <ul style={{ listStyleType: "none" }}>
-        {messages.map((msg, i) => (
-          <li key={i} className="message-list">
-            {(i === 0 || messages[i].username !== messages[i - 1].username) && (
-              <h4>{msg.username}</h4>
-            )}
+    <div>
+      <div className="chatwin">
+        <ul style={{ listStyleType: "none" }}>
+          {messages.map((msg, i) => (
+            <li key={i} className="message-list">
+              {(i === 0 ||
+                messages[i].username !== messages[i - 1].username) && (
+                <h4>{msg.username}</h4>
+              )}
+              <p className="message">{msg.message}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <div className="blur-area"></div>
 
-            <p className="message">{msg.message}</p>
-          </li>
-        ))}
-      </ul>
-
-      <input className="editor" onKeyDown={(e) => listenForSubmit(e)} />
+        <input className="editor" onKeyDown={(e) => listenForSubmit(e)} />
+      </div>
     </div>
   );
 };
