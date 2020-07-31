@@ -89,19 +89,8 @@ code {
   overflow-y: auto !important;
   overflow-x: hidden;
   overflow-wrap: break-word;
-  padding-bottom: 100px;
-  scroll-behavior: auto;
-}
-
-.blur-area {
-  position: fixed;
-  margin-left: 100px;
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
-}
-
-.message-list {
-  scroll-behavior: auto;
+  padding-bottom: 50px;
+  border-bottom: 100px solid #dfe8ee;
 }
 
 .message {
@@ -121,6 +110,16 @@ code {
   bottom: 70px;
   overflow: hidden;
 }
-.last {
-  margin-bottom: 300px;
+
+.border {
+  width: 200px;
+  height: 200px;
+}
+
+.blur {
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -o-filter: blur(1px);
+  -ms-filter: blur(1px);
+  filter: blur(1px);
 }

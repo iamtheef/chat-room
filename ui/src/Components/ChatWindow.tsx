@@ -29,6 +29,11 @@ export const ChatWindow: FC = () => {
     }
   };
 
+  const last = document.getElementById("last")!;
+  if (last) {
+    last.scrollIntoView();
+  }
+
   return (
     <div>
       <div className="chatwin">
@@ -42,13 +47,10 @@ export const ChatWindow: FC = () => {
               <p className="message">{msg.message}</p>
             </li>
           ))}
+          <div id="last"></div>
         </ul>
       </div>
-      <div>
-        <div className="blur-area"></div>
-
-        <input className="editor" onKeyDown={(e) => listenForSubmit(e)} />
-      </div>
+      <input className="editor" onKeyDown={(e) => listenForSubmit(e)} />
     </div>
   );
 };
