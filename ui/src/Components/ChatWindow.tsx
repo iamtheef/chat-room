@@ -1,25 +1,30 @@
 import React, { FC, useContext, useState, useEffect } from "react";
-import io from "socket.io-client";
 import { UserContext } from "../Context/User";
 
 interface Message {
   username: string;
   message: string;
 }
-const socket = io("http://localhost:4000");
 
 export const ChatWindow: FC = () => {
-  const { user } = useContext(UserContext);
+  const { user, socket } = useContext(UserContext);
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     socket.on("message", (username: string, msg: string) => {
-      setMessages((prevState) => [...prevState, { username, message: msg }]);
+      setMessages((messages) => [...messages, { username, message: msg }]);
+    });
+
+    socket.on("join", (username: string) => {
+      setMessages((messages) => [
+        ...messages,
+        { username: "", message: `${username} has joined the chat` },
+      ]);
     });
     return () => {
       socket.off("message");
     };
-  }, []);
+  }, [socket]);
 
   const listenForSubmit = (e: any) => {
     if (e.keyCode === 13) {

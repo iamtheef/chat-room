@@ -3,9 +3,7 @@ import * as cors from "cors";
 import * as bodyParser from "body-parser";
 
 export const app = require("express")();
-export const server = require("http").createServer(app);
-
-server.listen(4000, () => {
+export const server = app.listen(4000, () => {
   console.log("server is up!");
 });
 

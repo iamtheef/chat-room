@@ -2,14 +2,11 @@ import { connectDB, app } from "./configuration";
 import { register, login } from "./user-functions";
 import { add, remove, getContacts, search } from "./contacts-functions";
 import { makeNewSocket } from "./webSocket-server";
+
 (() => {
   connectDB();
   makeNewSocket();
 })();
-
-app.post("/newroom", async (req, res) => {
-  res.send(true);
-});
 
 app.get("/", (req, res) => {
   res.send("HELLO ALL POSSIBLE WORLDS");

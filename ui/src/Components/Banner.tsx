@@ -7,6 +7,7 @@ export const Banner: FC = () => {
       height="200"
       style={{ opacity: "0.6", borderRadius: "3px", marginTop: "10px" }}
       src={`https://media.giphy.com/media/rUPuU6G4X0Pew/source.gif`}
+      alt="banner"
     ></img>
   );
 };
