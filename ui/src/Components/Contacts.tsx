@@ -20,7 +20,7 @@ export const Contacts: FC = () => {
           <li
             key={`${contact._id}`}
             className="contact-item"
-            onClick={() => makeNewRoom()}
+            onClick={() => makeNewRoom(contact.username)}
           >
             <img
               className="user-icon"

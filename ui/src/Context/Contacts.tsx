@@ -11,7 +11,7 @@ export const ContactsContext = createContext<any>(undefined);
 
 export function ContactsProvider({ children }: Props) {
   const [contacts, setContacts] = useState<typeof User[] | []>([]);
-  const { user } = useContext(UserContext);
+  const { user, socket } = useContext(UserContext);
 
   const getContacts = () => {
     client.post("/getcontacts", { id: user._id }).then((contacts) => {
@@ -37,7 +37,9 @@ export function ContactsProvider({ children }: Props) {
     });
   };
 
-  const makeNewRoom = () => {};
+  const makeNewRoom = (username: string) => {
+    socket.emit("join", { username });
+  };
 
   return (
     <ContactsContext.Provider

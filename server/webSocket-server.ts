@@ -7,23 +7,28 @@ let users = [];
 export const makeNewSocket = () => {
   //
   io.on("connection", (socket: any) => {
+    //
+
     socket.on("active", ({ username }) => {
       users.push({ id: socket.id, username });
-      socket.broadcast.emit("message", `${username} has joined the chat.`);
+      console.log(users);
     });
 
-    socket.on("join", (id: string) => {
-      // socket.join();
-      // socket.broadcast.emit.to();
-    });
+    socket.on("join", ({ username }: { username: string }) => {
+      console.log("JOINED!");
+      console.log(username);
+      let user = users.find((user) => user.username === username);
+      socket.join(user.id);
 
-    socket.on("incoming", (msg: string, username: string) => {
-      io.emit("message", username, msg);
+      socket.on("incoming", (msg: string, username: string) => {
+        io.to(user.id).emit("message", username, msg);
+      });
     });
 
     socket.on("disconnect", () => {
       let disconnected = users.find((user) => user.id == socket.id);
       users = users.filter((user) => user.id !== socket.id);
+      console.log(users);
       if (disconnected) {
         socket.broadcast.emit(
           "message",
