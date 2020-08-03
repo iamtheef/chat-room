@@ -25,10 +25,13 @@ code {
   border-radius: 5px;
   display: grid;
   padding: 20px;
-  align-items: center;
   justify-self: center;
   width: 400px;
+  height: 200px;
   background-color: cadetblue;
+  position: relative;
+  overflow-y: auto !important;
+  overflow-x: hidden;
 }
 
 .container {
@@ -52,11 +55,14 @@ code {
 
 .contacts {
   list-style-type: none;
-  margin-top: 20px;
+  margin-top: 30px;
   border-radius: 5px;
   display: grid;
   padding: 20px;
   width: 400px;
+  height: 300px;
+  overflow-x: auto;
+  overflow-x: hidden;
   background-color: rgb(162, 216, 218);
 }
 
@@ -80,7 +86,7 @@ code {
   background-color: #f1f9fe;
   border-radius: 10px;
   padding: 20px;
-  margin-top: -380px;
+  margin-top: -530px;
   margin-left: 500px;
   height: 550px;
   width: 800px;
@@ -107,19 +113,11 @@ code {
   height: 50px;
   margin-left: 550px;
   position: fixed;
-  bottom: 70px;
+  bottom: 100px;
   overflow: hidden;
 }
 
 .border {
   width: 200px;
   height: 200px;
-}
-
-.blur {
-  -webkit-filter: blur(1px);
-  -moz-filter: blur(1px);
-  -o-filter: blur(1px);
-  -ms-filter: blur(1px);
-  filter: blur(1px);
 }

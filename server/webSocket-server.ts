@@ -15,8 +15,6 @@ export const makeNewSocket = () => {
     });
 
     socket.on("join", ({ username }: { username: string }) => {
-      console.log("JOINED!");
-      console.log(username);
       let user = users.find((user) => user.username === username);
       socket.join(user.id);
 
