@@ -20,14 +20,9 @@ export const Search: FC = () => {
 
   return (
     <div className="search-box">
-      <form action="" className="search-bar">
-        <input
-          type="search"
-          name="search"
-          pattern=".*\S.*"
-          required
-          onChange={(e) => setTerm(e.target.value)}
-        />
+      <h2 className="title">Search</h2>
+      <form className="search-bar">
+        <input type="search" onChange={(e) => setTerm(e.target.value)} />
       </form>
 
       <div>

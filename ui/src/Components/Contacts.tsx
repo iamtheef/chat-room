@@ -14,7 +14,7 @@ export const Contacts: FC = () => {
 
   return (
     <div className="contacts">
-      <h2 style={{ position: "static" }}>Contacts</h2>
+      <h2 className="title">Contacts</h2>
       <div>
         <ul
           style={{
@@ -22,20 +22,29 @@ export const Contacts: FC = () => {
           }}
         >
           {contacts.map((contact: typeof User) => (
-            <li
-              key={`${contact._id}`}
-              className="contact-item"
-              onClick={() => makeNewRoom(contact.username)}
-            >
-              <img
-                className="user-icon"
-                style={{ marginTop: "15px" }}
-                src={`${contact.avatar}`}
-                alt="user img"
-              />
-              <p>{contact.username}</p>
-              <i onClick={() => remove(contact._id)}>X</i>
-            </li>
+            <div>
+              <li
+                className="contact-item"
+                key={`${contact._id}`}
+                onClick={() => makeNewRoom(contact.username)}
+              >
+                <img
+                  className="user-icon"
+                  style={{ marginTop: "15px" }}
+                  src={`${contact.avatar}`}
+                  alt="user img"
+                />
+                <p>{contact.username}</p>
+                <p
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    remove(contact._id);
+                  }}
+                >
+                  X
+                </p>
+              </li>
+            </div>
           ))}
         </ul>
       </div>

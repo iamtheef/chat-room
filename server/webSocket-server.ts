@@ -15,8 +15,13 @@ export const makeNewSocket = () => {
     });
 
     socket.on("join", ({ username }: { username: string }) => {
+      console.error("JOIN!!");
       let user = users.find((user) => user.username === username);
-      socket.join(user.id);
+      if (user) {
+        socket.join(user.id);
+      } else {
+        console.error("implement db!");
+      }
 
       socket.on("incoming", (msg: string, username: string) => {
         io.to(user.id).emit("message", username, msg);
