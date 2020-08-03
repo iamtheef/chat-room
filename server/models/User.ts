@@ -15,6 +15,7 @@ const UserSchema = createSchema(
     contacts: Type.array({ default: [] }).of(Type.string({ unique: true })),
     date: Type.date({ default: Date.now as any }),
     avatar: Type.string({ default: icons[floor(random() * icons.length)] }),
+    unreadMessages: Type.array({ default: [] }).of({}),
   },
   { timestamps: { createdAt: true } }
 );

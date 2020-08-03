@@ -37,8 +37,8 @@ export function ContactsProvider({ children }: Props) {
     });
   };
 
-  const makeNewRoom = (username: string) => {
-    socket.emit("join", { username });
+  const makeNewRoom = (DBid: string) => {
+    socket.emit("join", { DBid });
   };
 
   return (

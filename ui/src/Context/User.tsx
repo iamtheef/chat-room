@@ -34,7 +34,7 @@ export function UserProvider({ children }: Props) {
 
   useEffect(() => {
     if (user) {
-      socket.emit("active", { username: user.username });
+      socket.emit("active", { username: user.username, DBid: user._id });
     } else {
       socket.close();
     }

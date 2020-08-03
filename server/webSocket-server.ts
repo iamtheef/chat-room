@@ -1,4 +1,5 @@
 import { server } from "./configuration";
+import User from "./models/User";
 
 export const io = require("socket.io").listen(server);
 
@@ -9,22 +10,24 @@ export const makeNewSocket = () => {
   io.on("connection", (socket: any) => {
     //
 
-    socket.on("active", ({ username }) => {
-      users.push({ id: socket.id, username });
+    socket.on("active", ({ username, DBid }) => {
+      users.push({ id: socket.id, username, DBid });
       console.log(users);
     });
 
-    socket.on("join", ({ username }: { username: string }) => {
-      console.error("JOIN!!");
-      let user = users.find((user) => user.username === username);
-      if (user) {
-        socket.join(user.id);
-      } else {
-        console.error("implement db!");
-      }
+    socket.on("join", async ({ DBid }: { DBid: string }) => {
+      let user = users.find((user) => user.DBid === DBid);
+      socket.on("incoming", async (msg: string, username: string) => {
+        let user = users.find((user) => user.DBid === DBid);
 
-      socket.on("incoming", (msg: string, username: string) => {
-        io.to(user.id).emit("message", username, msg);
+        if (user) {
+          console.log("found online!");
+          io.to(user.id).emit("message", username, msg);
+        } else {
+          console.log("pushed to db!");
+          let user = await User.findById(DBid);
+          user.unreadMessages.push({ user: username, message: msg });
+        }
       });
     });
 
