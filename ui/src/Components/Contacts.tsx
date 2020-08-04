@@ -8,9 +8,12 @@ export const Contacts: FC = () => {
     contacts,
     getContacts,
     remove,
-    makeNewRoom,
     onUsers,
     setOnUsers,
+    currentChat,
+    messages,
+    setCurrentChat,
+    setMessages,
   } = useContext(ContactsContext);
   const { socket } = useContext(UserContext);
 
@@ -36,7 +39,10 @@ export const Contacts: FC = () => {
             <li
               className="contact-item"
               key={`${contact._id}`}
-              onClick={() => makeNewRoom(contact._id)}
+              onClick={() => {
+                setCurrentChat(contact._id);
+                setMessages(messages[currentChat]);
+              }}
             >
               <img
                 className="user-icon"

@@ -136,10 +136,10 @@ code {
 }
 
 .status {
-  margin-left: -80px;
+  margin-left: -100px;
 }
 .on {
-  color: rgb(53, 199, 53);
+  color: rgb(14, 180, 14);
 }
 .off {
   color: red;

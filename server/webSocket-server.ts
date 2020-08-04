@@ -21,18 +21,19 @@ export const makeNewSocket = () => {
       );
     });
 
-    socket.on("join", async ({ DBid }: { DBid: string }) => {
-      let user = users.find((user) => user.DBid === DBid);
-
-      socket.on("incoming", async (msg: string, username: string) => {
+    socket.on(
+      "incoming",
+      async (msg: string, username: string, DBid: string) => {
+        let user = users.find((user) => user.DBid === DBid);
         if (user) {
-          io.to(user.id).emit("message", username, msg);
+          socket.join(user.id);
+          io.to(user.id).emit("message", username, msg, user.id);
         } else {
           let user = await User.findById(DBid);
           user.unreadMessages.push({ user: username, message: msg });
         }
-      });
-    });
+      }
+    );
 
     socket.on("disconnect", () => {
       let disconnected = users.find((user) => user.id == socket.id);

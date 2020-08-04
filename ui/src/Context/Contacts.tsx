@@ -7,12 +7,23 @@ type Props = {
   children: React.ReactNode;
 };
 
+interface Message {
+  username: string;
+  message: string;
+}
+
+interface Messages {
+  [id: string]: Message[];
+}
+
 export const ContactsContext = createContext<any>(undefined);
 
 export function ContactsProvider({ children }: Props) {
   const [contacts, setContacts] = useState<typeof User[] | []>([]);
   const [onUsers, setOnUsers] = useState<string[]>([]);
-  const { user, socket } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const [currentChat, setCurrentChat] = useState<string | undefined>(undefined);
+  const [messages, setMessages] = useState<Messages>();
 
   const getContacts = () => {
     client.post("/getcontacts", { id: user._id }).then((contacts) => {
@@ -39,10 +50,6 @@ export function ContactsProvider({ children }: Props) {
     });
   };
 
-  const makeNewRoom = (DBid: string) => {
-    socket.emit("join", { DBid });
-  };
-
   return (
     <ContactsContext.Provider
       value={{
@@ -51,9 +58,12 @@ export function ContactsProvider({ children }: Props) {
         getContacts,
         add,
         remove,
-        makeNewRoom,
         onUsers,
         setOnUsers,
+        currentChat,
+        setCurrentChat,
+        messages,
+        setMessages,
       }}
     >
       {children}
