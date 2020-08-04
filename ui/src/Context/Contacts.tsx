@@ -11,11 +11,13 @@ export const ContactsContext = createContext<any>(undefined);
 
 export function ContactsProvider({ children }: Props) {
   const [contacts, setContacts] = useState<typeof User[] | []>([]);
+  const [onUsers, setOnUsers] = useState<string[]>([]);
   const { user, socket } = useContext(UserContext);
 
   const getContacts = () => {
     client.post("/getcontacts", { id: user._id }).then((contacts) => {
-      setContacts(contacts.data);
+      setContacts(contacts.data.contacts);
+      setOnUsers(contacts.data.status);
     });
   };
 
@@ -50,6 +52,8 @@ export function ContactsProvider({ children }: Props) {
         add,
         remove,
         makeNewRoom,
+        onUsers,
+        setOnUsers,
       }}
     >
       {children}

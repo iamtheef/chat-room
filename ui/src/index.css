@@ -134,3 +134,13 @@ code {
   margin-top: 40px;
   position: relative;
 }
+
+.status {
+  margin-left: -80px;
+}
+.on {
+  color: rgb(53, 199, 53);
+}
+.off {
+  color: red;
+}

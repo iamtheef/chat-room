@@ -5,26 +5,29 @@ export const io = require("socket.io").listen(server);
 
 let users = [];
 
+export const getOnlineUsers = () => {
+  return users.map((user) => user.username);
+};
+
 export const makeNewSocket = () => {
   //
   io.on("connection", (socket: any) => {
     //
-
     socket.on("active", ({ username, DBid }) => {
       users.push({ id: socket.id, username, DBid });
-      console.log(users);
+      socket.broadcast.emit(
+        "status",
+        users.map((user) => user.username)
+      );
     });
 
     socket.on("join", async ({ DBid }: { DBid: string }) => {
       let user = users.find((user) => user.DBid === DBid);
-      socket.on("incoming", async (msg: string, username: string) => {
-        let user = users.find((user) => user.DBid === DBid);
 
+      socket.on("incoming", async (msg: string, username: string) => {
         if (user) {
-          console.log("found online!");
           io.to(user.id).emit("message", username, msg);
         } else {
-          console.log("pushed to db!");
           let user = await User.findById(DBid);
           user.unreadMessages.push({ user: username, message: msg });
         }
@@ -34,11 +37,10 @@ export const makeNewSocket = () => {
     socket.on("disconnect", () => {
       let disconnected = users.find((user) => user.id == socket.id);
       users = users.filter((user) => user.id !== socket.id);
-      console.log(users);
       if (disconnected) {
         socket.broadcast.emit(
-          "message",
-          `${disconnected.username} has left the chat.`
+          "status",
+          users.map((user) => user.username)
         );
       }
     });

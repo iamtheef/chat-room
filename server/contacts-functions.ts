@@ -1,5 +1,6 @@
 import User from "./models/User";
 import { Request, Response } from "express";
+import { getOnlineUsers } from "./webSocket-server";
 
 export const add = async (req: Request, res: Response) => {
   const { _id, add } = req.body;
@@ -41,7 +42,7 @@ export const getContacts = (req: Request, res: Response) => {
   User.findById(id)
     .populate("contacts")
     .then((user) => {
-      res.send(user.contacts);
+      res.send({ contacts: user.contacts, status: getOnlineUsers() });
     })
     .catch((e) => {
       res.send([]);
