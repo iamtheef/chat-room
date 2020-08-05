@@ -1,26 +1,25 @@
 import React, { FC, useContext, useEffect } from "react";
 import { UserContext } from "../Context/User";
-import { ContactsContext } from "../Context/Contacts";
+import { MessagesContext } from "../Context/Messages";
 
 export const ChatWindow: FC = () => {
   const { user, socket } = useContext(UserContext);
-  const { currentChat, messages, setMessages } = useContext(ContactsContext);
+  const { currentChat, messages, setMessages, chatWindow } = useContext(
+    MessagesContext
+  );
 
   useEffect(() => {
     socket.on("message", (username: string, msg: string, userId: string) => {
-      // setMessages((messages) => [...messages, { username, message: msg }]);
       setMessages((prev: any) => ({
         ...prev,
         [userId]: [{ username, message: msg }],
       }));
-      console.log("inside chatwindow");
-      console.log(currentChat);
     });
 
     return () => {
       socket.off("message");
     };
-  }, [socket, currentChat, setMessages]);
+  }, [socket, currentChat]);
 
   const listenForSubmit = (e: any) => {
     if (e.keyCode === 13) {
@@ -38,25 +37,23 @@ export const ChatWindow: FC = () => {
   return (
     <div>
       <div className="chatwin">
-        {messages ? (
+        {chatWindow ? (
           <ul style={{ listStyleType: "none" }}>
-            {messages[currentChat].map(
-              ({ msg, i }: { msg: any; i: number }) => (
-                <li key={i} className="message-list">
-                  {(i === 0 ||
-                    messages[currentChat][i].username !==
-                      messages[currentChat][i - 1].username) && (
-                    <h4>{msg.username}</h4>
-                  )}
-                  <p className="message">{msg.message}</p>
-                </li>
-              )
-            )}
+            {chatWindow.map(({ msg, i }: { msg: any; i: number }) => (
+              <li key={i} className="message-list">
+                {(i === 0 ||
+                  chatWindow[i].username !== chatWindow[i - 1].username) && (
+                  <h4>{msg.username}</h4>
+                )}
+                <p className="message">{msg.message}</p>
+              </li>
+            ))}
             <div id="last"></div>
           </ul>
         ) : (
-          <div>please pick a name first!</div>
+          <p>{currentChat ? currentChat : "no current chat"}</p>
         )}
+        {currentChat}
       </div>
       <input className="editor" onKeyDown={(e) => listenForSubmit(e)} />
     </div>

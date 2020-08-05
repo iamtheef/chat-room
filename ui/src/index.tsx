@@ -5,12 +5,15 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { UserProvider } from "./Context/User";
 import { ContactsProvider } from "./Context/Contacts";
+import { MessagesProvider } from "./Context/Messages";
 
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
       <ContactsProvider>
-        <App />
+        <MessagesProvider>
+          <App />
+        </MessagesProvider>
       </ContactsProvider>
     </UserProvider>
   </React.StrictMode>,

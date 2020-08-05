@@ -2,19 +2,15 @@ import React, { FC, useContext, useEffect } from "react";
 import User from "../../../server/models/User";
 import { ContactsContext } from "../Context/Contacts";
 import { UserContext } from "../Context/User";
+import { MessagesContext } from "../Context/Messages";
 
 export const Contacts: FC = () => {
-  const {
-    contacts,
-    getContacts,
-    remove,
-    onUsers,
-    setOnUsers,
-    currentChat,
-    messages,
-    setCurrentChat,
-    setMessages,
-  } = useContext(ContactsContext);
+  const { contacts, getContacts, remove, onUsers, setOnUsers } = useContext(
+    ContactsContext
+  );
+  const { currentChat, messages, setCurrentChat, setChatWindow } = useContext(
+    MessagesContext
+  );
   const { socket } = useContext(UserContext);
 
   useEffect(() => {
@@ -41,7 +37,7 @@ export const Contacts: FC = () => {
               key={`${contact._id}`}
               onClick={() => {
                 setCurrentChat(contact._id);
-                setMessages(messages[currentChat]);
+                setChatWindow(messages[currentChat]);
               }}
             >
               <img
