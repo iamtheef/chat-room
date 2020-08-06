@@ -65,6 +65,10 @@ code {
   overflow-x: hidden;
   background-color: rgb(162, 216, 218);
 }
+.contacts a {
+  text-decoration: none;
+  color: inherit;
+}
 
 .contact-item {
   margin-left: -20px;
@@ -86,8 +90,13 @@ code {
   background-color: #f1f9fe;
   border-radius: 10px;
   padding: 20px;
-  margin-top: -550px;
-  margin-left: 500px;
+
+  /* margin-top: -550px; */
+  /* margin-left: 500px; */
+
+  margin-top: -280px;
+  margin-left: 440px;
+
   height: 560px;
   width: 800px;
   border: 1px solid #f1eeee;
@@ -136,7 +145,8 @@ code {
 }
 
 .status {
-  margin-left: -100px;
+  color: inherit;
+  margin-left: -50px;
 }
 .on {
   color: rgb(14, 180, 14);

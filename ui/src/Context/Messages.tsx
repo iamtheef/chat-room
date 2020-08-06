@@ -1,4 +1,10 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  useRef,
+} from "react";
 import { ContactsContext } from "../Context/Contacts";
 import User from "../../../server/models/User";
 
@@ -20,11 +26,9 @@ export const MessagesContext = createContext<any>(undefined);
 export function MessagesProvider({ children }: Props) {
   const { contacts } = useContext(ContactsContext);
   const [currentChat, setCurrentChat] = useState<string | undefined>(undefined);
-  const [chatWindow, setChatWindow] = useState<Message[] | []>([]);
+  const [messages, setMessages] = useState<Messages>();
 
   let mes: Messages = {};
-
-  const [messages, setMessages] = useState<Messages>();
 
   useEffect(() => {
     mes = contacts.forEach((c: typeof User) => (mes[c._id.toString()] = []));
@@ -38,8 +42,6 @@ export function MessagesProvider({ children }: Props) {
         setCurrentChat,
         messages,
         setMessages,
-        chatWindow,
-        setChatWindow,
       }}
     >
       {children}
