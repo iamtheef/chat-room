@@ -29,7 +29,6 @@ export function MessagesProvider({ children }: Props) {
   useEffect(() => {
     mes = contacts.forEach((c: typeof User) => (mes[c._id.toString()] = []));
     setMessages(mes);
-    console.log(messages);
   }, [contacts]);
 
   return (

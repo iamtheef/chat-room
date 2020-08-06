@@ -3,6 +3,7 @@ import User from "../../../server/models/User";
 import { ContactsContext } from "../Context/Contacts";
 import { UserContext } from "../Context/User";
 import { MessagesContext } from "../Context/Messages";
+import { Link } from "react-router-dom";
 
 export const Contacts: FC = () => {
   const { contacts, getContacts, remove, onUsers, setOnUsers } = useContext(
@@ -37,7 +38,6 @@ export const Contacts: FC = () => {
               key={`${contact._id}`}
               onClick={() => {
                 setCurrentChat(contact._id);
-                setChatWindow(messages[currentChat]);
               }}
             >
               <img

@@ -7,7 +7,6 @@ import { UserContext } from "../Context/User";
 
 export const MainRoom: FC = () => {
   const { user } = useContext(UserContext);
-
   return (
     <div className="main-room">
       {user ? (
