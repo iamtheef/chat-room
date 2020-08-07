@@ -11,7 +11,7 @@ export const Panel: FC = () => {
 
   useEffect(() => {
     console.log("panel ", currentChat);
-  });
+  }, [currentChat]);
 
   return (
     <div className="main-room">

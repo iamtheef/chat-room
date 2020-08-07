@@ -5,6 +5,7 @@ import { ChatWindow } from "./ChatWindow";
 import { Redirect, MemoryRouter, Route } from "react-router-dom";
 import { UserContext } from "../Context/User";
 import { MessagesContext } from "../Context/Messages";
+import { BlankChat } from "./BlankChat";
 
 export const MainRoom: FC = () => {
   const { user } = useContext(UserContext);
@@ -12,7 +13,7 @@ export const MainRoom: FC = () => {
 
   useEffect(() => {
     console.log("main room! :: ", currentChat);
-  }, [currentChat]);
+  });
 
   return (
     <div className="main-room">
@@ -22,11 +23,8 @@ export const MainRoom: FC = () => {
           <Search />
           <MemoryRouter>
             <Contacts />
-            <Route
-              exact
-              path={`/${currentChat}`}
-              component={ChatWindow}
-            ></Route>
+            <Route path={`/`} component={BlankChat}></Route>
+            <Route path={`/${currentChat}`} component={ChatWindow}></Route>
           </MemoryRouter>
         </div>
       ) : (

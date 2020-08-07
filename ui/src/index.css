@@ -151,3 +151,51 @@ code {
 .off {
   color: red;
 }
+
+.anim-background {
+  color: #fff;
+  background: linear-gradient(-45deg, #eba2e7, #2c2941, #23a6d5);
+  background-size: 400% 400%;
+  -webkit-animation: gradientBG 10s ease infinite;
+  animation: gradientBG 10s ease infinite;
+  background-color: #f1f9fe;
+
+  border-radius: 10px;
+  padding: 20px;
+
+  margin-top: -550px;
+  margin-left: 500px;
+
+  height: 560px;
+  width: 800px;
+  border: 1px solid #f1eeee;
+  position: fixed;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+  padding-bottom: 50px;
+  border-bottom: 100px solid #dfe8ee;
+}
+
+@-webkit-keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
