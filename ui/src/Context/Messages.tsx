@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useState,
-  useContext,
-  useEffect,
-  useRef,
-} from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { ContactsContext } from "../Context/Contacts";
 import User from "../../../server/models/User";
 
@@ -31,8 +25,8 @@ export function MessagesProvider({ children }: Props) {
   let mes: Messages = {};
 
   useEffect(() => {
-    mes = contacts.forEach((c: typeof User) => (mes[c._id.toString()] = []));
     setMessages(mes);
+    mes = contacts.forEach((c: typeof User) => (mes[c._id.toString()] = []));
   }, [contacts]);
 
   return (

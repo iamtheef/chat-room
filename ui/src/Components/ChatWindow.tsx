@@ -9,21 +9,17 @@ export const ChatWindow: FC = () => {
   const { user, socket } = useContext(UserContext);
 
   useEffect(() => {
-    socket.on(
-      "message",
-      (username: string, msg: string, userId: string) => {
-        setMessages((prev: any) => ({
-          ...prev,
-          [userId]: [{ username, message: msg }],
-        }));
-      },
-      [messages]
-    );
+    socket.on("message", (username: string, msg: string, userId: string) => {
+      setMessages((prev: any) => ({
+        ...prev,
+        [userId]: [{ username, message: msg }],
+      }));
+    });
 
     return () => {
       socket.off("message");
     };
-  }, [socket, currentChat, setMessages]);
+  }, [socket, currentChat, setMessages, messages]);
 
   const listenForSubmit = (e: any) => {
     if (e.keyCode === 13) {
@@ -36,7 +32,8 @@ export const ChatWindow: FC = () => {
   return (
     <div>
       <div className="chatwin">
-        {currentChat ? <Panel /> : <p>{"no current chat"}</p>}
+        <h1>{currentChat}</h1>
+        <Panel />
       </div>
       <input className="editor" onKeyDown={(e) => listenForSubmit(e)} />
     </div>
