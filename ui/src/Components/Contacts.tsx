@@ -3,21 +3,25 @@ import User from "../../../server/models/User";
 import { ContactsContext } from "../Context/Contacts";
 import { UserContext } from "../Context/User";
 import { MessagesContext } from "../Context/Messages";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const Contacts: FC = () => {
   const { contacts, getContacts, remove, onUsers, setOnUsers } = useContext(
     ContactsContext
   );
-  const { currentChat, setCurrentChat } = useContext(MessagesContext);
+  const { currentChat, setCurrentChat, initMessages } = useContext(
+    MessagesContext
+  );
   const { socket } = useContext(UserContext);
   const history = useHistory();
 
   useEffect(() => {
     getContacts();
+
     socket.on("status", (users: string[]) => {
       setOnUsers(users);
     });
+    initMessages();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
@@ -38,7 +42,6 @@ export const Contacts: FC = () => {
               onClick={() => {
                 setCurrentChat(contact._id);
                 history.push(`/${currentChat}`);
-                console.log("inside contacts :: ", currentChat);
               }}
             >
               <img

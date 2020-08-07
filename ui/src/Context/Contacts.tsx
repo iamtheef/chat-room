@@ -14,9 +14,10 @@ export function ContactsProvider({ children }: Props) {
   const [onUsers, setOnUsers] = useState<string[]>([]);
   const { user } = useContext(UserContext);
 
-  const getContacts = () => {
+  const getContacts = async () => {
     client.post("/getcontacts", { id: user._id }).then((contacts) => {
       setContacts(contacts.data.contacts);
+      console.log("set contacts called !");
       setOnUsers(contacts.data.status);
     });
   };

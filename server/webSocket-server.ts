@@ -29,8 +29,8 @@ export const makeNewSocket = () => {
           socket.join(user.id);
           io.to(user.id).emit("message", username, msg, user.id);
         } else {
-          let user = await User.findById(DBid);
-          user.unreadMessages.push({ user: username, message: msg });
+          // let user = await User.findById(DBid);
+          // user.unreadMessages.push({ user: username, message: msg });
         }
       }
     );

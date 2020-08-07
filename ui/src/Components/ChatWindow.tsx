@@ -2,7 +2,6 @@ import React, { FC, useContext, useEffect } from "react";
 import { UserContext } from "../Context/User";
 import { MessagesContext } from "../Context/Messages";
 import { Panel } from "./Panel";
-import { BlankChat } from "./BlankChat";
 
 export const ChatWindow: FC = () => {
   const { currentChat, setMessages, messages } = useContext(MessagesContext);
@@ -11,6 +10,7 @@ export const ChatWindow: FC = () => {
 
   useEffect(() => {
     socket.on("message", (username: string, msg: string, userId: string) => {
+      console.log(username, msg, userId);
       setMessages((prev: any) => ({
         ...prev,
         [userId]: [{ username, message: msg }],

@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from "react";
+import React, { FC, useContext } from "react";
 import { MessagesContext } from "../Context/Messages";
 
 export const Panel: FC = () => {
@@ -8,10 +8,6 @@ export const Panel: FC = () => {
   if (last) {
     last.scrollIntoView();
   }
-
-  useEffect(() => {
-    console.log("panel ", currentChat);
-  }, [currentChat]);
 
   return (
     <div className="main-room">
