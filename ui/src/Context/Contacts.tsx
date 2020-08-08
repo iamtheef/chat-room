@@ -17,7 +17,6 @@ export function ContactsProvider({ children }: Props) {
   const getContacts = async () => {
     client.post("/getcontacts", { id: user._id }).then((contacts) => {
       setContacts(contacts.data.contacts);
-      console.log("set contacts called !");
       setOnUsers(contacts.data.status);
     });
   };

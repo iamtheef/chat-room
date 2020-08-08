@@ -9,9 +9,7 @@ export const Contacts: FC = () => {
   const { contacts, getContacts, remove, onUsers, setOnUsers } = useContext(
     ContactsContext
   );
-  const { currentChat, setCurrentChat, initMessages } = useContext(
-    MessagesContext
-  );
+  const { currentChat, setCurrentChat } = useContext(MessagesContext);
   const { socket } = useContext(UserContext);
   const history = useHistory();
 
@@ -21,7 +19,6 @@ export const Contacts: FC = () => {
     socket.on("status", (users: string[]) => {
       setOnUsers(users);
     });
-    initMessages();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);

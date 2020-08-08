@@ -12,7 +12,7 @@ export const BlankChat: FC = () => {
           height="400"
           style={{ marginLeft: "90px", marginTop: "-50px", opacity: "0.1" }}
         ></img>
-        <input className="editor" style={{ marginLeft: "-550px" }} />
+        <input className="editor faded" style={{ marginLeft: "-550px" }} />
       </div>
     </div>
   );

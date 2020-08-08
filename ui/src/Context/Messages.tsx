@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { ContactsContext } from "../Context/Contacts";
 import User from "../../../server/models/User";
 
@@ -25,11 +25,17 @@ export function MessagesProvider({ children }: Props) {
   let mes: Messages = {};
 
   const initMessages = () => {
-    console.log("we are in init !!  ", contacts);
     setMessages(mes);
     mes = contacts.forEach((c: typeof User) => (mes[c._id.toString()] = []));
   };
 
+  useEffect(() => {
+    if (contacts.length && !messages) {
+      initMessages();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contacts]);
   return (
     <MessagesContext.Provider
       value={{
@@ -37,7 +43,6 @@ export function MessagesProvider({ children }: Props) {
         setCurrentChat,
         messages,
         setMessages,
-        initMessages,
       }}
     >
       {children}
