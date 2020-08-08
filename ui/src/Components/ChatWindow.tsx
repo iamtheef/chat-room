@@ -12,7 +12,7 @@ export const ChatWindow: FC = () => {
     socket.on("message", (username: string, msg: string, userId: string) => {
       setMessages((prev: any) => ({
         ...prev,
-        [userId]: [{ username, message: msg }],
+        [userId]: [...prev, { username, message: msg }],
       }));
     });
 

@@ -1,6 +1,6 @@
 import User from "./models/User";
 import { Request, Response } from "express";
-import { compare, hashSync } from "bcryptjs";
+import { compare, hashSync, compareSync } from "bcryptjs";
 
 export const register = async (req: Request, res: Response) => {
   let existingUser = await User.findOne({ email: req.body.email });
@@ -13,10 +13,8 @@ export const register = async (req: Request, res: Response) => {
     .save()
     .then((user) => {
       if (user) {
-        res.send({
-          logged: true,
-          user: { username: user.username, _id: user._id },
-        });
+        const { username, _id, unreadMessages } = user;
+        res.send({ logged: true, user: { username, _id, unreadMessages } });
         return;
       }
     })
@@ -28,12 +26,24 @@ export const login = async (req: Request, res: Response) => {
   const user = await User.findOne({ email: email });
   if (user) {
     if (await compare(password, user.password)) {
-      const { username, _id } = user;
-      res.send({ logged: true, user: { username, _id } });
+      const { username, _id, unreadMessages } = user;
+      res.send({ logged: true, user: { username, _id, unreadMessages } });
+      return;
     } else {
       res.send({ logged: false, msg: "WRONG CREDENTIALS" });
     }
   } else {
     res.send({ logged: false, msg: "WRONG CREDENTIALS" });
   }
+};
+
+export const expireMessages = async (req: Request, res: Response) => {
+  const { id } = req.body;
+  const user = await User.findById(id);
+  if (user) {
+    user.unreadMessages = [];
+    await user.save();
+  }
+
+  res.send(true);
 };

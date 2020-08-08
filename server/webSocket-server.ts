@@ -13,8 +13,8 @@ export const makeNewSocket = () => {
   //
   io.on("connection", (socket: any) => {
     //
-    socket.on("active", ({ username, DBid }) => {
-      users.push({ id: socket.id, username, DBid });
+    socket.on("active", ({ username, dbID }) => {
+      users.push({ id: socket.id, username, dbID });
       socket.broadcast.emit(
         "status",
         users.map((user) => user.username)
@@ -23,14 +23,20 @@ export const makeNewSocket = () => {
 
     socket.on(
       "incoming",
-      async (msg: string, username: string, DBid: string) => {
-        let user = users.find((user) => user.DBid === DBid);
+      async (msg: string, username: string, dbID: string) => {
+        let user = users.find((user) => user.dbID === dbID);
         if (user) {
           socket.join(user.id);
           io.to(user.id).emit("message", username, msg, user.id);
         } else {
-          // let user = await User.findById(DBid);
-          // user.unreadMessages.push({ user: username, message: msg });
+          let user = await User.findById(dbID);
+
+          user.unreadMessages.push({
+            username,
+            user: users.find((user) => user.id == socket.id).dbID,
+            message: msg,
+          });
+          await user.save();
         }
       }
     );
