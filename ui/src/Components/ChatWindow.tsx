@@ -10,9 +10,10 @@ export const ChatWindow: FC = () => {
 
   useEffect(() => {
     socket.on("message", (username: string, msg: string, userId: string) => {
+      console.log(username, msg);
       setMessages((prev: any) => ({
         ...prev,
-        [userId]: [...prev, { username, message: msg }],
+        [userId]: [...prev[userId], { username, message: msg }],
       }));
     });
 

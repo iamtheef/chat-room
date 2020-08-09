@@ -1,6 +1,6 @@
 import User from "./models/User";
 import { Request, Response } from "express";
-import { compare, hashSync, compareSync } from "bcryptjs";
+import { compare, hashSync } from "bcryptjs";
 
 export const register = async (req: Request, res: Response) => {
   let existingUser = await User.findOne({ email: req.body.email });
@@ -43,7 +43,8 @@ export const expireMessages = async (req: Request, res: Response) => {
   if (user) {
     user.unreadMessages = [];
     await user.save();
+    res.send(true);
+    return;
   }
-
-  res.send(true);
+  res.send(false);
 };

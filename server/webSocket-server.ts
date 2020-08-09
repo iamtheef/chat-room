@@ -27,7 +27,7 @@ export const makeNewSocket = () => {
         let user = users.find((user) => user.dbID === dbID);
         if (user) {
           socket.join(user.id);
-          io.to(user.id).emit("message", username, msg, user.id);
+          io.to(user.id).emit("message", username, msg, user.dbID);
         } else {
           let user = await User.findById(dbID);
 

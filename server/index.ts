@@ -37,6 +37,5 @@ app.post("/getcontacts", (req, res) => {
 });
 
 app.post("/expiremessages", (req, res) => {
-  console.log("CAME HERE!");
   expireMessages(req, res);
 });

@@ -8,13 +8,13 @@ type Props = {
   children: React.ReactNode;
 };
 
-interface Message {
+export interface Message {
   username: string;
   message: string;
   user?: string;
 }
 
-interface Messages {
+export interface Messages {
   [id: string]: Message[] | [];
 }
 
@@ -29,7 +29,7 @@ export function MessagesProvider({ children }: Props) {
   let mes: Messages = {};
 
   const initMessages = async () => {
-    mes = contacts.map((c: typeof User) => (mes[c._id.toString()] = []));
+    contacts.map((c: typeof User) => (mes[c._id.toString()] = [] as Message[]));
 
     if (user && user.unreadMessages.length) {
       user.unreadMessages.forEach((msg: Message) => {
@@ -42,9 +42,9 @@ export function MessagesProvider({ children }: Props) {
           mes[msg.user!] = [{ username: msg.username, message: msg.message }];
         }
       });
+
       await client.post("/expiremessages", { id: user._id });
     }
-    console.log(contacts.map((c: typeof User) => (mes[c._id.toString()] = [])));
     setMessages(mes);
   };
 
@@ -52,7 +52,6 @@ export function MessagesProvider({ children }: Props) {
     if (contacts.length && !messages) {
       initMessages();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contacts]);
   return (
