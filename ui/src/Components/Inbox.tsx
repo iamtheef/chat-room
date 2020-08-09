@@ -19,6 +19,7 @@ export const Inbox: FC = () => {
           newContacts.push({ id: msg.user, username: msg.username });
         }
       });
+
       if (newContacts.length > 0) {
         setRequests(newContacts);
       }
@@ -27,28 +28,24 @@ export const Inbox: FC = () => {
   return (
     <div>
       {user ? (
-        <div>
+        <div className={`inbox ${requests.length > 0 && "has-inbox"}`}>
           {requests.length && (
             <div>
-              <Link to="/inbox">
-                <img
-                  width="30"
-                  height="30"
-                  src="https://www.pngonly.com/wp-content/uploads/2017/05/Anonymous-Mask-Clipart-PNG-Image-01.png"
-                  alt="new req"
-                />
-              </Link>
+              {requests.length}
+              <Link to="/inbox"></Link>
             </div>
           )}
-          <ul
+          {/* <ul
             style={{
               listStyleType: "none",
             }}
           >
             {requests.map((req: any) => (
-              <li onClick={() => add(req.id)}>{req.username}</li>
+              <li onClick={() => add(req.id)} key={req.id}>
+                {req.username}
+              </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
       ) : (
         <Redirect to="/login" />

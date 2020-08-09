@@ -204,3 +204,15 @@ code {
   opacity: 0.1;
   pointer-events: none;
 }
+
+.inbox {
+  margin-top: -25px;
+  margin-bottom: 20px;
+  font-size: 35px;
+}
+
+.has-inbox {
+  text-emphasis: bold;
+  color: #dfe8ee;
+  font-weight: bolder;
+}

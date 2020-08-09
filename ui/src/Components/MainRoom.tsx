@@ -14,9 +14,7 @@ export const MainRoom: FC = () => {
     <div className="main-room">
       {user ? (
         <div>
-          <h1 style={{ marginTop: "0px", marginBottom: "-5px" }}>
-            WELCOME {user.username}
-          </h1>
+          <h1 style={{ marginTop: "0px" }}>WELCOME {user.username}</h1>
           <Inbox />
           <Search />
           <MemoryRouter>
