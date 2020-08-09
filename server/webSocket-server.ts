@@ -6,7 +6,7 @@ export const io = require("socket.io").listen(server);
 let users = [];
 
 export const getOnlineUsers = () => {
-  return users.map((user) => user.username);
+  return users.map((user) => user.dbID);
 };
 
 export const makeNewSocket = () => {
@@ -17,26 +17,37 @@ export const makeNewSocket = () => {
       users.push({ id: socket.id, username, dbID });
       socket.broadcast.emit(
         "status",
-        users.map((user) => user.username)
+        users.map((user) => user.dbID)
       );
     });
 
     socket.on(
       "incoming",
-      async (msg: string, username: string, dbID: string) => {
-        let user = users.find((user) => user.dbID === dbID);
+      async (msg: string, username: string, receiverID: string) => {
+        //
+        // user is online
+        let user = users.find((user) => user.dbID === receiverID);
         if (user) {
           socket.join(user.id);
           io.to(user.id).emit("message", username, msg, user.dbID);
         } else {
-          let user = await User.findById(dbID);
-
+          //
+          // user is offline
+          let user = await User.findById(receiverID);
           user.unreadMessages.push({
             username,
             user: users.find((user) => user.id == socket.id).dbID,
             message: msg,
           });
           await user.save();
+
+          socket.join(user.id);
+          io.to(user.id).emit(
+            "message",
+            username,
+            msg,
+            users.find((user) => user.id == socket.id).dbID
+          );
         }
       }
     );

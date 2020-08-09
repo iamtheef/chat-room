@@ -47,7 +47,7 @@ export const Contacts: FC = () => {
                 src={`${contact.avatar}`}
                 alt="user img"
               />
-              {onUsers.indexOf(contact.username) >= 0 ? (
+              {onUsers.indexOf(contact._id) >= 0 ? (
                 <i className="status on">1</i>
               ) : (
                 <i className="status off">0</i>

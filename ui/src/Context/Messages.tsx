@@ -45,7 +45,7 @@ export function MessagesProvider({ children }: Props) {
 
       await client.post("/expiremessages", { id: user._id });
     }
-    setMessages(mes);
+    setMessages({ ...mes });
   };
 
   useEffect(() => {

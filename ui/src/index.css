@@ -22,13 +22,14 @@ code {
 }
 
 .search-box {
+  opacity: 0.8;
   border-radius: 5px;
   display: grid;
   padding: 20px;
   justify-self: center;
   width: 400px;
   height: 200px;
-  background-color: cadetblue;
+  background-color: rgb(137, 149, 150);
   position: relative;
   overflow-y: auto !important;
   overflow-x: hidden;
@@ -64,6 +65,7 @@ code {
   overflow-x: auto;
   overflow-x: hidden;
   background-color: rgb(162, 216, 218);
+  opacity: 0.8;
 }
 .contacts a {
   text-decoration: none;
@@ -119,7 +121,7 @@ code {
   height: 50px;
   margin-left: 550px;
   position: fixed;
-  bottom: 90px;
+  bottom: 65px;
   overflow: hidden;
 }
 
@@ -154,7 +156,7 @@ code {
 
 .anim-background {
   color: #fff;
-  background: linear-gradient(-45deg, #eba2e7, #2c2941, #23a6d5);
+  background: linear-gradient(-45deg, #99e5cf, #2c2941, #23a6d5);
   background-size: 400% 400%;
   -webkit-animation: gradientBG 10s ease infinite;
   animation: gradientBG 10s ease infinite;

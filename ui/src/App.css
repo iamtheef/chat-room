@@ -8,7 +8,7 @@ body {
   margin: 0;
   font-family: "Bungee Outline", cursive;
   font-size: 25px;
-  background: #3b4465;
+  background: url("https://media.giphy.com/media/UYBDCJjwOd9Re/source.gif");
 }
 
 .forms-section {
@@ -287,4 +287,5 @@ body {
 .quote {
   font-family: "Courier New", Courier, monospace;
   font-size: 25px;
+  color: white;
 }
