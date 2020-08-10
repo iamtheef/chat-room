@@ -6,13 +6,16 @@ import * as serviceWorker from "./serviceWorker";
 import { UserProvider } from "./Context/User";
 import { ContactsProvider } from "./Context/Contacts";
 import { MessagesProvider } from "./Context/Messages";
+import { InboxProvider } from "./Context/Inbox";
 
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
       <ContactsProvider>
         <MessagesProvider>
-          <App />
+          <InboxProvider>
+            <App />
+          </InboxProvider>
         </MessagesProvider>
       </ContactsProvider>
     </UserProvider>

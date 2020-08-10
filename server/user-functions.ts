@@ -1,10 +1,14 @@
 import User from "./models/User";
 import { Request, Response } from "express";
 import { compare, hashSync } from "bcryptjs";
+import { validateAccount } from "./utils/isAccountValid";
 
 export const register = async (req: Request, res: Response) => {
-  let existingUser = await User.findOne({ email: req.body.email });
-  if (existingUser) res.send({ logged: false, msg: "YOU ARE ALREADY SIGNED" });
+  let { msg, logged } = await validateAccount(req);
+  if (!logged) {
+    res.send({ msg, logged });
+    return;
+  }
 
   new User({
     ...req.body,

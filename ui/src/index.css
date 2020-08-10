@@ -22,7 +22,7 @@ code {
 }
 
 .search-box {
-  opacity: 0.8;
+  opacity: 0.9;
   border-radius: 5px;
   display: grid;
   padding: 20px;
@@ -64,8 +64,8 @@ code {
   height: 320px;
   overflow-x: auto;
   overflow-x: hidden;
-  background-color: rgb(162, 216, 218);
-  opacity: 0.8;
+  background-color: rgb(149, 150, 150);
+  opacity: 0.9;
 }
 .contacts a {
   text-decoration: none;
@@ -148,15 +148,16 @@ code {
   margin-left: -50px;
 }
 .on {
-  color: rgb(14, 180, 14);
+  color: rgb(202, 255, 202);
 }
 .off {
   color: red;
 }
 
 .anim-background {
+  scroll-behavior: unset;
   color: #fff;
-  background: linear-gradient(-45deg, #99e5cf, #2c2941, #23a6d5);
+  background: linear-gradient(-45deg, #edeeee, #e7bb89, #87e6ba, #e9e970);
   background-size: 400% 400%;
   -webkit-animation: gradientBG 10s ease infinite;
   animation: gradientBG 10s ease infinite;
@@ -172,8 +173,6 @@ code {
   width: 800px;
   border: 1px solid #f1eeee;
   position: fixed;
-  overflow-y: auto !important;
-  overflow-x: hidden;
   overflow-wrap: break-word;
   padding-bottom: 50px;
   border-bottom: 100px solid #dfe8ee;
@@ -211,6 +210,7 @@ code {
   margin-top: -25px;
   margin-bottom: 20px;
   font-size: 35px;
+  color: #dfe8ee;
 }
 
 .has-inbox {

@@ -13,7 +13,8 @@
     "http": "0.0.1-security",
     "mongoose": "^5.9.25",
     "socket.io": "^2.3.0",
-    "ts-mongoose": "0.0.21"
+    "ts-mongoose": "0.0.21",
+    "validator": "^13.1.1"
   },
   "scripts": {
     "start": "nodemon index.ts",

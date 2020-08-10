@@ -64,6 +64,7 @@ export const Contacts: FC = () => {
             </li>
           ))}
         </ul>
+        <p onClick={() => history.push(`/`)}>▓</p>
       </div>
     </div>
   );

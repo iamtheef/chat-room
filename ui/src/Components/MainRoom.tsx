@@ -5,7 +5,7 @@ import { ChatWindow } from "./ChatWindow";
 import { Redirect, MemoryRouter, Route } from "react-router-dom";
 import { UserContext } from "../Context/User";
 import { BlankChat } from "./BlankChat";
-import { Inbox } from "./Inbox";
+import { InboxIcon } from "./InboxIcon";
 
 export const MainRoom: FC = () => {
   const { user } = useContext(UserContext);
@@ -17,7 +17,7 @@ export const MainRoom: FC = () => {
           <h1 style={{ marginTop: "0px", color: "white" }}>
             WELCOME {user.username}
           </h1>
-          <Inbox />
+          <InboxIcon />
           <Search />
           <MemoryRouter>
             <Contacts />
