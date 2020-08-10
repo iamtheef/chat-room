@@ -6,7 +6,7 @@ import { Panel } from "./Panel";
 
 export const ChatWindow: FC = () => {
   const { currentChat, setMessages, messages } = useContext(MessagesContext);
-  const { onUsers } = useContext(ContactsContext);
+  const { onUsers, contacts } = useContext(ContactsContext);
   const { user, socket } = useContext(UserContext);
 
   useEffect(() => {
@@ -52,6 +52,9 @@ export const ChatWindow: FC = () => {
   return (
     <div>
       <div className="chatwin">
+        <h5 style={{ marginTop: "-45px", position: "fixed" }}>
+          {contacts.find((u: any) => u._id === currentChat).username}
+        </h5>
         <Panel />
       </div>
       <input className="editor" onKeyDown={(e) => listenForSubmit(e)} />

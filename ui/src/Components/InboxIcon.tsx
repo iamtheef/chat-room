@@ -1,12 +1,9 @@
-import React, { FC, useContext, useEffect } from "react";
+import React, { FC, useContext } from "react";
 import { Link } from "react-router-dom";
 import { InboxContext } from "../Context/Inbox";
 
 export const InboxIcon: FC = () => {
   const { requests } = useContext(InboxContext);
-  useEffect(() => {
-    console.log("REQUESTS :: ", requests.length);
-  });
 
   return (
     <Link to="/inbox">

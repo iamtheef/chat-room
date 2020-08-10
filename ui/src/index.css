@@ -105,6 +105,7 @@ code {
   overflow-wrap: break-word;
   padding-bottom: 50px;
   border-bottom: 100px solid #dfe8ee;
+  border-top: 30px solid #dfe8ee;
 }
 
 .message {

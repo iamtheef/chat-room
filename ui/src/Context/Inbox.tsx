@@ -14,7 +14,7 @@ export function InboxProvider({ children }: Props) {
   const { contacts } = useContext(ContactsContext);
 
   useEffect(() => {
-    if (user && user.unreadMessages.length) {
+    if (user && user.unreadMessages.length && contacts.length) {
       let newContacts: any = [];
       let existingContacts = contacts.map((c: any) => c._id);
       user.unreadMessages.forEach((msg: any) => {

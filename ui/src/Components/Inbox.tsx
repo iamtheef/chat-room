@@ -23,8 +23,14 @@ export const Inbox: FC = () => {
           className="quote"
         >
           {requests.map((req: any) => (
-            <li onClick={() => add(req.id)} key={req.id}>
+            <li>
               {req.username}
+              <p>{req.message}</p>
+
+              <button onClick={() => add(req.id)} key={req.id}>
+                Accept Request
+              </button>
+              <button>Delete Request</button>
             </li>
           ))}
         </ul>
