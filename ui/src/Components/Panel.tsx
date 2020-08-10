@@ -24,7 +24,7 @@ export const Panel: FC = () => {
               <p className="message">{msg.message}</p>
             </li>
           ))}
-        <div id="last"></div>
+        <div id="last" style={{ marginTop: "20px" }}></div>
       </ul>
     </div>
   );

@@ -1,6 +1,12 @@
 import { connectDB, app } from "./configuration";
 import { register, login, expireMessages } from "./user-functions";
-import { add, remove, getContacts, search } from "./contacts-functions";
+import {
+  add,
+  remove,
+  getContacts,
+  search,
+  removeRequest,
+} from "./contacts-functions";
 import { makeNewSocket } from "./webSocket-server";
 
 (() => {
@@ -38,4 +44,8 @@ app.post("/getcontacts", (req, res) => {
 
 app.post("/expiremessages", (req, res) => {
   expireMessages(req, res);
+});
+
+app.post("/removerequest", (req, res) => {
+  removeRequest(req, res);
 });

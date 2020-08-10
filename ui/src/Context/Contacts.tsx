@@ -10,12 +10,12 @@ type Props = {
 };
 
 export function ContactsProvider({ children }: Props) {
-  const [contacts, setContacts] = useState<typeof User[] | []>([]);
+  const [contacts, setContacts] = useState<typeof User[]>([]);
   const [onUsers, setOnUsers] = useState<string[]>([]);
   const { user } = useContext(UserContext);
 
   const getContacts = async () => {
-    client.post("/getcontacts", { id: user._id }).then((contacts) => {
+    await client.post("/getcontacts", { id: user._id }).then((contacts) => {
       setContacts(contacts.data.contacts);
       setOnUsers(contacts.data.status);
     });
@@ -23,11 +23,16 @@ export function ContactsProvider({ children }: Props) {
 
   const add = (add: string) => {
     const { _id } = user;
-    client.post("/add", { _id, add }).then((contacts) => {
-      if (contacts.data) {
-        getContacts();
-      }
-    });
+    let contactIDs = contacts.map((c: any) => c._id);
+    if (!(contactIDs.indexOf(add) < 0)) {
+      alert("DUPLICATE CONTACTS ARE NOT ALLOWED");
+    } else {
+      client.post("/add", { _id, add }).then((contacts) => {
+        if (contacts.data) {
+          getContacts();
+        }
+      });
+    }
   };
 
   const remove = (id: string) => {

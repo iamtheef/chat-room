@@ -1,13 +1,11 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { UserContext } from "../Context/User";
 import { InboxContext } from "../Context/Inbox";
-import { ContactsContext } from "../Context/Contacts";
 
 export const Inbox: FC = () => {
-  const { requests } = useContext(InboxContext);
+  const { requests, acceptRequest, removeRequest } = useContext(InboxContext);
   const { user } = useContext(UserContext);
-  const { add } = useContext(ContactsContext);
 
   return (
     <div>
@@ -23,14 +21,15 @@ export const Inbox: FC = () => {
           className="quote"
         >
           {requests.map((req: any) => (
-            <li>
+            <li key={`${req.id}`}>
               {req.username}
-              <p>{req.message}</p>
 
-              <button onClick={() => add(req.id)} key={req.id}>
+              <button onClick={() => acceptRequest(req.id)}>
                 Accept Request
               </button>
-              <button>Delete Request</button>
+              <button onClick={() => removeRequest(req.id)}>
+                Delete Request
+              </button>
             </li>
           ))}
         </ul>

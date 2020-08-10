@@ -2,11 +2,13 @@ import React, { FC, useState, useEffect, useContext } from "react";
 import User from "../../../server/models/User";
 import { client } from "../Utils/AxiosClient";
 import { ContactsContext } from "../Context/Contacts";
+import { MessagesContext } from "../Context/Messages";
 
 export const Search: FC = () => {
   const { add } = useContext(ContactsContext);
   const [results, setResults] = useState<any>([]);
   const [term, setTerm] = useState<string>("");
+  const { setCurrentChat } = useContext(MessagesContext);
 
   useEffect(() => {
     if (term === "" || term.length <= 3) {
@@ -35,7 +37,14 @@ export const Search: FC = () => {
                 alt="user img"
               />
               <p>{user.username}</p>
-              <button onClick={() => add(user._id.toString())}>Add</button>
+              <button
+                onClick={() => {
+                  add(user._id.toString());
+                  setCurrentChat(user._id.toString());
+                }}
+              >
+                Add
+              </button>
             </li>
           ))}
         </ul>

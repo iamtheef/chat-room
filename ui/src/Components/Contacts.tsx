@@ -57,6 +57,7 @@ export const Contacts: FC = () => {
                 onClick={(e) => {
                   e.stopPropagation();
                   remove(contact._id);
+                  history.push(`/`);
                 }}
               >
                 X
