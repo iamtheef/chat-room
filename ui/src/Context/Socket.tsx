@@ -2,6 +2,7 @@ import React, { createContext, useContext } from "react";
 import { Message } from "../../../types";
 import { UserContext } from "../Context/User";
 import { MessagesContext } from "../Context/Messages";
+import { InboxContext } from "../Context/Inbox";
 
 export const SocketContext = createContext<any>(undefined);
 
@@ -10,11 +11,21 @@ type Props = {
 };
 
 export function SocketProvider({ children }: Props) {
-  const { currentChat, setMessages } = useContext(MessagesContext);
+  const { currentChat, setMessages, isItNewContact } = useContext(
+    MessagesContext
+  );
+  const { setUnread, setRequests } = useContext(InboxContext);
   const { user, socket } = useContext(UserContext);
 
   const listener = () => {
-    socket.on("message", ({ username, message, sender, receiver }: Message) => {
+    socket.on("message", (msg: Message) => {
+      const { username, message, sender, receiver } = msg;
+
+      if (isItNewContact(msg)) {
+        setRequests((prev: any) => [...prev, { username, id: sender }]);
+        return;
+      }
+
       if (user._id === sender) {
         setMessages((prev: any) => ({
           ...prev,
@@ -25,6 +36,10 @@ export function SocketProvider({ children }: Props) {
           ...prev,
           [sender!]: [...prev[sender!], { username, message }],
         }));
+
+        if (currentChat !== sender) {
+          setUnread((prev: any) => [...prev, sender]);
+        }
       }
     });
   };

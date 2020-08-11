@@ -1,10 +1,12 @@
 import React, { FC, useState, useEffect, useContext } from "react";
 import User from "../../../server/models/User";
 import { client } from "../Utils/AxiosClient";
+import { UserContext } from "../Context/User";
 import { ContactsContext } from "../Context/Contacts";
 import { MessagesContext } from "../Context/Messages";
 
 export const Search: FC = () => {
+  const { user } = useContext(UserContext);
   const { add } = useContext(ContactsContext);
   const [results, setResults] = useState<any>([]);
   const [term, setTerm] = useState<string>("");
@@ -29,18 +31,18 @@ export const Search: FC = () => {
 
       <div>
         <ul className="search">
-          {results.map((user: typeof User) => (
-            <li key={`${user._id}`} className="list-item">
-              <img
-                className="user-icon"
-                src={`${user.avatar}`}
-                alt="user img"
-              />
+          {results.map((u: typeof User) => (
+            <li key={`${u._id}`} className="list-item">
+              <img className="user-icon" src={`${u.avatar}`} alt="user img" />
               <p>{user.username}</p>
               <button
                 onClick={() => {
-                  add(user._id.toString());
-                  setCurrentChat(user._id.toString());
+                  if (user._id !== u._id) {
+                    add(u._id.toString());
+                    setCurrentChat(u._id.toString());
+                  } else {
+                    alert("ELLIOT, IS IT YOU?");
+                  }
                 }}
               >
                 Add

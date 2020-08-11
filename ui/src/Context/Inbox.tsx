@@ -13,18 +13,18 @@ export function InboxProvider({ children }: Props) {
   const [requests, setRequests] = useState<any>([]);
   const [unread, setUnread] = useState<any>([]);
   const { user } = useContext(UserContext);
-  const { contacts, add } = useContext(ContactsContext);
+  const { contacts, add, getIDs } = useContext(ContactsContext);
 
   useEffect(() => {
     if (user && user.unreadMessages.length && !!contacts) {
       let newContacts: any = [];
       let reqs: any = [];
-      let existingContacts = contacts.map((c: any) => c._id);
+      let existingContacts = getIDs();
 
       user.unreadMessages.forEach((m: any) => {
         if (
           existingContacts.indexOf(m.sender) < 0 &&
-          newContacts.indexOf(m.user) < 0
+          newContacts.indexOf(m.sender) < 0
         ) {
           newContacts.push(m.sender);
           reqs.push({ username: m.username, id: m.sender });
@@ -50,7 +50,7 @@ export function InboxProvider({ children }: Props) {
     await client.post("/removerequest", { user: user._id, id }).then((res) => {
       if (res.data) {
         user.unreadMessages = user.unreadMessages.filter(
-          (m: any) => m.user !== id
+          (m: any) => m.sender !== id
         );
         setRequests((prev: any) => prev.filter((r: any) => r.id !== id));
       }

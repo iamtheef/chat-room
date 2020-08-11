@@ -14,7 +14,7 @@ export const MessagesContext = createContext<any>(undefined);
 export function MessagesProvider({ children }: Props) {
   const [currentChat, setCurrentChat] = useState<string | undefined>(undefined);
   const [messages, setMessages] = useState<Messages>();
-  const { contacts } = useContext(ContactsContext);
+  const { contacts, getIDs } = useContext(ContactsContext);
   const { user } = useContext(UserContext);
 
   let mes: Messages = {};
@@ -39,6 +39,14 @@ export function MessagesProvider({ children }: Props) {
     setMessages({ ...mes });
   };
 
+  const isItNewContact = (msg: Message) => {
+    return (
+      getIDs().indexOf(msg.sender) < 0 &&
+      user._id !== msg.sender &&
+      user._id === msg.receiver
+    );
+  };
+
   useEffect(() => {
     if (contacts.length && !messages) {
       initMessages();
@@ -52,6 +60,7 @@ export function MessagesProvider({ children }: Props) {
         setCurrentChat,
         messages,
         setMessages,
+        isItNewContact,
       }}
     >
       {children}

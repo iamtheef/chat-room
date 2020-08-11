@@ -44,6 +44,10 @@ export function ContactsProvider({ children }: Props) {
     });
   };
 
+  const getIDs = () => {
+    return contacts.map((c: any) => c._id);
+  };
+
   return (
     <ContactsContext.Provider
       value={{
@@ -54,6 +58,7 @@ export function ContactsProvider({ children }: Props) {
         remove,
         onUsers,
         setOnUsers,
+        getIDs,
       }}
     >
       {children}
