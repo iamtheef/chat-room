@@ -220,3 +220,8 @@ code {
   color: #dfe8ee;
   font-weight: bolder;
 }
+
+.has-message {
+  text-emphasis: bold;
+  font-weight: bolder;
+}

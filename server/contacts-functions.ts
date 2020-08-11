@@ -57,9 +57,11 @@ export const search = async (req: Request, res: Response) => {
 export const removeRequest = async (req: Request, res: Response) => {
   const { user, id } = req.body;
   let foundUser = await User.findById(user);
-  console.log(foundUser.unreadMessages);
 
-  foundUser.unreadMessages.filter((m: any) => m.user !== id);
+  let filteredMessages = foundUser.unreadMessages.filter(
+    (m: any) => m.user !== id
+  );
+  foundUser.unreadMessages = filteredMessages;
   foundUser.save().then((saved) => {
     res.send(true);
   });

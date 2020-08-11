@@ -3,6 +3,7 @@ import User from "../../../server/models/User";
 import { ContactsContext } from "../Context/Contacts";
 import { UserContext } from "../Context/User";
 import { MessagesContext } from "../Context/Messages";
+import { InboxContext } from "../Context/Inbox";
 import { useHistory } from "react-router-dom";
 
 export const Contacts: FC = () => {
@@ -10,6 +11,7 @@ export const Contacts: FC = () => {
     ContactsContext
   );
   const { currentChat, setCurrentChat } = useContext(MessagesContext);
+  const { unread, setUnread } = useContext(InboxContext);
   const { socket } = useContext(UserContext);
   const history = useHistory();
 
@@ -39,6 +41,9 @@ export const Contacts: FC = () => {
               onClick={() => {
                 setCurrentChat(contact._id);
                 history.push(`/${currentChat}`);
+                setUnread((prev: any) =>
+                  prev.filter((m: any) => m !== contact._id)
+                );
               }}
             >
               <img
@@ -52,7 +57,13 @@ export const Contacts: FC = () => {
               ) : (
                 <i className="status off">0</i>
               )}
-              <p>{contact.username}</p>
+              <p
+                className={`${
+                  unread.indexOf(contact._id) > -1 && "has-message"
+                }`}
+              >
+                {contact.username}
+              </p>
               <p
                 onClick={(e) => {
                   e.stopPropagation();

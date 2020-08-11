@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from "react";
+import React, { FC, useContext } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { UserContext } from "../Context/User";
 import { InboxContext } from "../Context/Inbox";

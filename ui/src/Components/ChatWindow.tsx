@@ -13,7 +13,6 @@ export const ChatWindow: FC = () => {
     socket.on(
       "message",
       (username: string, msg: string, receiverID: string) => {
-        console.log(username, msg);
         // receiver is offline
         if (onUsers.indexOf(receiverID) < 0) {
           setMessages((prev: any) => ({

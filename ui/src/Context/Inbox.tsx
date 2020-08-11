@@ -11,6 +11,7 @@ export const InboxContext = createContext<any>(undefined);
 
 export function InboxProvider({ children }: Props) {
   const [requests, setRequests] = useState<any>([]);
+  const [unread, setUnread] = useState<any>([]);
   const { user } = useContext(UserContext);
   const { contacts, add } = useContext(ContactsContext);
 
@@ -27,6 +28,8 @@ export function InboxProvider({ children }: Props) {
         ) {
           newContacts.push(m.user);
           reqs.push({ username: m.username, id: m.user });
+        } else if (unread.indexOf(m.user < 0)) {
+          setUnread((prev: any) => [...prev, m.user]);
         }
       });
 
@@ -34,6 +37,8 @@ export function InboxProvider({ children }: Props) {
         setRequests(reqs);
       }
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contacts]);
 
   const acceptRequest = async (id: string) => {
@@ -44,6 +49,9 @@ export function InboxProvider({ children }: Props) {
   const removeRequest = async (id: string) => {
     await client.post("/removerequest", { user: user._id, id }).then((res) => {
       if (res.data) {
+        user.unreadMessages = user.unreadMessages.filter(
+          (m: any) => m.user !== id
+        );
         setRequests((prev: any) => prev.filter((r: any) => r.id !== id));
       }
     });
@@ -51,7 +59,14 @@ export function InboxProvider({ children }: Props) {
 
   return (
     <InboxContext.Provider
-      value={{ requests, setRequests, acceptRequest, removeRequest }}
+      value={{
+        requests,
+        setRequests,
+        acceptRequest,
+        removeRequest,
+        unread,
+        setUnread,
+      }}
     >
       {children}
     </InboxContext.Provider>
