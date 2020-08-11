@@ -23,13 +23,13 @@ export function InboxProvider({ children }: Props) {
 
       user.unreadMessages.forEach((m: any) => {
         if (
-          existingContacts.indexOf(m.user) < 0 &&
+          existingContacts.indexOf(m.sender) < 0 &&
           newContacts.indexOf(m.user) < 0
         ) {
-          newContacts.push(m.user);
-          reqs.push({ username: m.username, id: m.user });
-        } else if (unread.indexOf(m.user < 0)) {
-          setUnread((prev: any) => [...prev, m.user]);
+          newContacts.push(m.sender);
+          reqs.push({ username: m.username, id: m.sender });
+        } else if (unread.indexOf(m.sender < 0)) {
+          setUnread((prev: any) => [...prev, m.sender]);
         }
       });
 

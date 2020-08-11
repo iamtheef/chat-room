@@ -1,6 +1,19 @@
-import React, { FC } from "react";
+import React, { FC, useContext, useEffect } from "react";
+import { UserContext } from "../Context/User";
+import { SocketContext } from "../Context/Socket";
 
 export const BlankChat: FC = () => {
+  const { listener } = useContext(SocketContext);
+  const { socket } = useContext(UserContext);
+
+  useEffect(() => {
+    listener();
+
+    return () => {
+      socket.off("message");
+    };
+  }, [socket, listener]);
+
   return (
     <div>
       <div className="anim-background">

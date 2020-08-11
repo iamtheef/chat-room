@@ -1,5 +1,6 @@
 import { server } from "./configuration";
 import User from "./models/User";
+import { Message } from "../types";
 
 export const io = require("socket.io").listen(server);
 
@@ -21,36 +22,29 @@ export const makeNewSocket = () => {
       );
     });
 
-    socket.on(
-      "incoming",
-      async (msg: string, username: string, receiverID: string) => {
+    socket.on("incoming", async (msg: Message) => {
+      const { message, receiver, sender, username } = msg;
+      //
+      // receiver is online
+      let user = users.find((user) => user.dbID === receiver);
+      if (user) {
+        socket.join(user.id);
+        io.to(user.id).emit("message", { username, message, sender, receiver });
+      } else {
         //
-        // user is online
-        let user = users.find((user) => user.dbID === receiverID);
-        if (user) {
-          socket.join(user.id);
-          io.to(user.id).emit("message", username, msg, user.dbID);
-        } else {
-          //
-          // user is offline
-          let user = await User.findById(receiverID);
-          user.unreadMessages.push({
-            username,
-            user: users.find((user) => user.id == socket.id).dbID,
-            message: msg,
-          });
-          await user.save();
+        // receiver is offline
+        let user = await User.findById(receiver);
+        user.unreadMessages.push({
+          username,
+          sender,
+          message,
+        });
+        await user.save();
 
-          socket.join(user.id);
-          io.to(user.id).emit(
-            "message",
-            username,
-            msg,
-            users.find((user) => user.id == socket.id).dbID
-          );
-        }
+        socket.join(user.id);
+        io.to(user.id).emit("message", { username, message, sender, receiver });
       }
-    );
+    });
 
     socket.on("disconnect", () => {
       let disconnected = users.find((user) => user.id == socket.id);

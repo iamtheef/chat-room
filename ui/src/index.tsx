@@ -7,6 +7,7 @@ import { UserProvider } from "./Context/User";
 import { ContactsProvider } from "./Context/Contacts";
 import { MessagesProvider } from "./Context/Messages";
 import { InboxProvider } from "./Context/Inbox";
+import { SocketProvider } from "./Context/Socket";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,7 +15,9 @@ ReactDOM.render(
       <ContactsProvider>
         <MessagesProvider>
           <InboxProvider>
-            <App />
+            <SocketProvider>
+              <App />
+            </SocketProvider>
           </InboxProvider>
         </MessagesProvider>
       </ContactsProvider>

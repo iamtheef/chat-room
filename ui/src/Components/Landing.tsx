@@ -2,6 +2,7 @@ import React, { FC, useContext, useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../Context/User";
+import { Form } from "../../../types";
 
 export const Landing: FC = () => {
   const { submit, user } = useContext(UserContext);
@@ -11,7 +12,7 @@ export const Landing: FC = () => {
   const [username, setUsername] = useState<string>("");
   const history = useHistory();
 
-  const form = {
+  const form: Form = {
     email,
     password,
     username,

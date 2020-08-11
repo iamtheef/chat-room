@@ -3,28 +3,19 @@ import { ContactsContext } from "../Context/Contacts";
 import { UserContext } from "../Context/User";
 import User from "../../../server/models/User";
 import { client } from "../Utils/AxiosClient";
+import { Message, Messages } from "../../../types";
 
 type Props = {
   children: React.ReactNode;
 };
 
-export interface Message {
-  username: string;
-  message: string;
-  user?: string;
-}
-
-export interface Messages {
-  [id: string]: Message[] | [];
-}
-
 export const MessagesContext = createContext<any>(undefined);
 
 export function MessagesProvider({ children }: Props) {
-  const { contacts } = useContext(ContactsContext);
-  const { user } = useContext(UserContext);
   const [currentChat, setCurrentChat] = useState<string | undefined>(undefined);
   const [messages, setMessages] = useState<Messages>();
+  const { contacts } = useContext(ContactsContext);
+  const { user } = useContext(UserContext);
 
   let mes: Messages = {};
 
@@ -33,13 +24,13 @@ export function MessagesProvider({ children }: Props) {
 
     if (user && user.unreadMessages.length) {
       user.unreadMessages.forEach((msg: Message) => {
-        if (mes[msg.user!]) {
-          mes[msg.user!] = [
-            ...mes[msg.user!],
+        if (mes[msg.sender!]) {
+          mes[msg.sender!] = [
+            ...mes[msg.sender!],
             { username: msg.username, message: msg.message },
           ];
         } else {
-          mes[msg.user!] = [{ username: msg.username, message: msg.message }];
+          mes[msg.sender!] = [{ username: msg.username, message: msg.message }];
         }
       });
 
