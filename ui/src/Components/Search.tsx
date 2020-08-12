@@ -3,6 +3,7 @@ import User from "../../../server/models/User";
 import { client } from "../Utils/AxiosClient";
 import { UserContext } from "../Context/User";
 import { ContactsContext } from "../Context/Contacts";
+import { AdminIcon } from "./Assets/AdminIcon";
 
 export const Search: FC = () => {
   const { user } = useContext(UserContext);
@@ -33,6 +34,7 @@ export const Search: FC = () => {
             <li key={`${u._id}`} className="list-item">
               <img className="user-icon" src={`${u.avatar}`} alt="user img" />
               <p>{u.username}</p>
+              {u.isAdmin && <AdminIcon />}
               <button
                 onClick={() => {
                   if (user._id !== u._id) {

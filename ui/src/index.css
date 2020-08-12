@@ -73,15 +73,16 @@ code {
 }
 
 .contact-item {
-  margin-left: -20px;
+  margin-left: -60px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  width: 400px;
 }
 
 .contact-item:hover {
   cursor: pointer;
-  width: auto;
+
   background-color: rgb(151, 202, 204);
 }
 .main-room {
@@ -215,6 +216,21 @@ code {
   color: #dfe8ee;
 }
 
+.inbox-item {
+  margin-bottom: 60px;
+  color: #dfe8ee;
+  margin-left: -20px;
+}
+
+.inbox-list {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 25px;
+  color: white;
+  justify-items: space-evenly !important;
+  justify-content: space-between;
+  list-style: none;
+}
+
 .has-inbox {
   text-emphasis: bold;
   color: #dfe8ee;
@@ -224,4 +240,8 @@ code {
 .has-message {
   text-emphasis: bold;
   font-weight: bolder;
+}
+
+.isCurrentChat {
+  background-color: rgb(189, 199, 199);
 }

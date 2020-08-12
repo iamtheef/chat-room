@@ -5,6 +5,7 @@ import { UserContext } from "../Context/User";
 import { MessagesContext } from "../Context/Messages";
 import { InboxContext } from "../Context/Inbox";
 import { useHistory } from "react-router-dom";
+import { AdminIcon } from "./Assets/AdminIcon";
 
 export const Contacts: FC = () => {
   const { contacts, getContacts, remove, onUsers, setOnUsers } = useContext(
@@ -36,7 +37,9 @@ export const Contacts: FC = () => {
         >
           {contacts.map((contact: typeof User) => (
             <li
-              className="contact-item"
+              className={`contact-item ${
+                contact._id === currentChat && "isCurrentChat"
+              }`}
               key={`${contact._id}`}
               onClick={() => {
                 setCurrentChat(contact._id);
@@ -48,7 +51,6 @@ export const Contacts: FC = () => {
             >
               <img
                 className="user-icon"
-                style={{ marginTop: "15px" }}
                 src={`${contact.avatar}`}
                 alt="user img"
               />
@@ -64,6 +66,7 @@ export const Contacts: FC = () => {
               >
                 {contact.username}
               </p>
+              {contact.isAdmin && <AdminIcon />}
               <p
                 onClick={(e) => {
                   e.stopPropagation();
@@ -76,7 +79,14 @@ export const Contacts: FC = () => {
             </li>
           ))}
         </ul>
-        <p onClick={() => history.push(`/`)}>▓</p>
+        <p
+          onClick={() => {
+            history.push(`/`);
+            setCurrentChat(undefined);
+          }}
+        >
+          ▓
+        </p>
       </div>
     </div>
   );

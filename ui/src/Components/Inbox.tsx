@@ -14,17 +14,14 @@ export const Inbox: FC = () => {
         <p className="quote">{"<<<"} </p>{" "}
       </Link>
       {user ? (
-        <ul
-          style={{
-            listStyleType: "none",
-          }}
-          className="quote"
-        >
+        <ul className="inbox-list">
           {requests.map((req: any) => (
-            <li key={`${req.id}`}>
-              {req.username}
-
-              <button onClick={() => acceptRequest(req.id)}>
+            <li key={`${req.id}`} className="inbox-item">
+              <p>{req.username}</p>
+              <button
+                onClick={() => acceptRequest(req.id)}
+                style={{ marginRight: "10px" }}
+              >
                 Accept Request
               </button>
               <button onClick={() => removeRequest(req.id)}>

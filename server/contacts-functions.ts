@@ -59,7 +59,7 @@ export const removeRequest = async (req: Request, res: Response) => {
   let foundUser = await User.findById(user);
 
   foundUser.temporaryMessages = foundUser.temporaryMessages.filter(
-    (m: any) => m.user !== id
+    (m: any) => m.sender !== id
   );
 
   foundUser.save().then((saved) => {

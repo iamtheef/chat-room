@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
 import { Link } from "react-router-dom";
-import { InboxContext } from "../Context/Inbox";
+import { InboxContext } from "../../Context/Inbox";
 
 export const InboxIcon: FC = () => {
   const { requests } = useContext(InboxContext);

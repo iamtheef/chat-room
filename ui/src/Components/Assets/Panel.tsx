@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
-import { MessagesContext } from "../Context/Messages";
-import { Message } from "../../../types";
+import { MessagesContext } from "../../Context/Messages";
+import { Message } from "../../../../types";
 
 export const Panel: FC = () => {
   const { currentChat, messages } = useContext(MessagesContext);

@@ -4,8 +4,9 @@ import { Search } from "./Search";
 import { Contacts } from "./Contacts";
 import { ChatWindow } from "./ChatWindow";
 import { UserContext } from "../Context/User";
-import { BlankChat } from "./BlankChat";
-import { InboxIcon } from "./InboxIcon";
+import { BlankChat } from "./Assets/BlankChat";
+import { InboxIcon } from "./Assets/InboxIcon";
+import { InfoIcon } from "./Assets/InfoIcon";
 
 export const MainRoom: FC = () => {
   const { user } = useContext(UserContext);
@@ -14,9 +15,10 @@ export const MainRoom: FC = () => {
     <div className="main-room">
       {user ? (
         <div>
-          <h1 style={{ marginTop: "0px", color: "white" }}>
+          <h1 style={{ marginTop: "0px", color: "white", marginBottom: "0px" }}>
             WELCOME {user.username}
           </h1>
+          <InfoIcon />
           <InboxIcon />
           <Search />
           <MemoryRouter>
