@@ -15,7 +15,10 @@ const UserSchema = createSchema(
     contacts: Type.array({ default: [] }).of(Type.string({ unique: true })),
     date: Type.date({ default: Date.now as any }),
     avatar: Type.string({ default: icons[floor(random() * icons.length)] }),
+    isAdmin: Type.boolean({ default: false }),
     unreadMessages: Type.array({ default: [] }).of({}),
+    // for general use of the app
+    temporaryMessages: Type.array({ dafault: [] }).of({}),
   },
   { timestamps: { createdAt: true } }
 );

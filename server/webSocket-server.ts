@@ -34,11 +34,20 @@ export const makeNewSocket = () => {
         //
         // receiver is offline
         let user = await User.findById(receiver);
-        user.unreadMessages.push({
-          username,
-          sender,
-          message,
-        });
+        if (user.contacts.indexOf(sender) < 0) {
+          user.temporaryMessages.push({
+            username,
+            sender,
+            message,
+          });
+        } else {
+          user.unreadMessages.push({
+            username,
+            sender,
+            message,
+          });
+        }
+
         await user.save();
 
         socket.join(user.id);

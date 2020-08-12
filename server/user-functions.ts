@@ -30,8 +30,11 @@ export const login = async (req: Request, res: Response) => {
   const user = await User.findOne({ email: email });
   if (user) {
     if (await compare(password, user.password)) {
-      const { username, _id, unreadMessages } = user;
-      res.send({ logged: true, user: { username, _id, unreadMessages } });
+      const { username, _id, unreadMessages, temporaryMessages } = user;
+      res.send({
+        logged: true,
+        user: { username, _id, unreadMessages, temporaryMessages },
+      });
       return;
     } else {
       res.send({ logged: false, msg: "WRONG CREDENTIALS" });
@@ -58,7 +61,7 @@ export const storeMessage = async (req: Request, res: Response) => {
   const { id, msg } = req.body;
   const user = await User.findById(id);
   if (user) {
-    user.unreadMessages.push(msg);
+    user.temporaryMessages.push(msg);
     await user.save();
     res.send(true);
     return;
@@ -70,10 +73,10 @@ export const getMessagesByThisContact = async (req: Request, res: Response) => {
   const { me, contact } = req.body;
   const user = await User.findById(me);
   if (user) {
-    let foundMessages = user.unreadMessages.filter(
+    let foundMessages = user.temporaryMessages.filter(
       (msg: any) => msg.sender === contact
     );
-    user.unreadMessages = user.unreadMessages.filter(
+    user.temporaryMessages = user.temporaryMessages.filter(
       (msg: any) => msg.sender !== contact
     );
     await user.save();

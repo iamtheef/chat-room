@@ -11,23 +11,19 @@ type Props = {
 export const InboxContext = createContext<any>(undefined);
 
 export function InboxProvider({ children }: Props) {
-  const { contacts, add, getIDs } = useContext(ContactsContext);
+  const { contacts, add } = useContext(ContactsContext);
   const { setMessages } = useContext(MessagesContext);
   const [requests, setRequests] = useState<any>([]);
   const [unread, setUnread] = useState<any>([]);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    if (user && user.unreadMessages.length && !!contacts) {
+    if (user && user.temporaryMessages.length && !!contacts) {
       let newContacts: any = [];
       let reqs: any = [];
-      let existingContacts = getIDs();
 
-      user.unreadMessages.forEach((m: any) => {
-        if (
-          existingContacts.indexOf(m.sender) < 0 &&
-          newContacts.indexOf(m.sender) < 0
-        ) {
+      user.temporaryMessages.forEach((m: any) => {
+        if (newContacts.indexOf(m.sender) < 0) {
           newContacts.push(m.sender);
           reqs.push({ username: m.username, id: m.sender });
         } else if (unread.indexOf(m.sender < 0)) {
@@ -38,7 +34,6 @@ export function InboxProvider({ children }: Props) {
       if (newContacts.length > 0) {
         setRequests(reqs);
       }
-      client.post("/expiremessages", { id: user._id, new: newContacts });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,7 +43,7 @@ export function InboxProvider({ children }: Props) {
     add(id);
     setRequests((prev: any) => prev.filter((r: any) => r.id !== id));
     client
-      .post("/getmessagesbythiscontact", { me: user._id, contact: id })
+      .post("/get_messages_by_this_contact", { me: user._id, contact: id })
       .then((res) => {
         setMessages((prev: any) => ({
           ...prev,
@@ -56,13 +51,16 @@ export function InboxProvider({ children }: Props) {
         }));
 
         setUnread((prev: any) => [...prev, id]);
+        user.temporaryMessages = user.temporaryMessages.filter(
+          (m: any) => m.sender !== id
+        );
       });
   };
 
   const removeRequest = async (id: string) => {
-    await client.post("/removerequest", { user: user._id, id }).then((res) => {
+    await client.post("/remove_request", { user: user._id, id }).then((res) => {
       if (res.data) {
-        user.unreadMessages = user.unreadMessages.filter(
+        user.temporaryMessages = user.temporaryMessages.filter(
           (m: any) => m.sender !== id
         );
         setRequests((prev: any) => prev.filter((r: any) => r.id !== id));

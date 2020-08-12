@@ -3,6 +3,7 @@ import { ContactsContext } from "../Context/Contacts";
 import { UserContext } from "../Context/User";
 import User from "../../../server/models/User";
 import { Message, Messages } from "../../../types";
+import { client } from "../Utils/AxiosClient";
 
 type Props = {
   children: React.ReactNode;
@@ -34,14 +35,11 @@ export function MessagesProvider({ children }: Props) {
       });
     }
     setMessages({ ...mes });
+    client.post("/expire_messages", { id: user._id });
   };
 
   const isItNewContact = (msg: Message) => {
-    return (
-      getIDs().indexOf(msg.sender) < 0 &&
-      user._id !== msg.sender &&
-      user._id === msg.receiver
-    );
+    return getIDs().indexOf(msg.sender) < 0 && msg.sender !== user._id;
   };
 
   useEffect(() => {

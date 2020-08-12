@@ -58,7 +58,7 @@ export const removeRequest = async (req: Request, res: Response) => {
   const { user, id } = req.body;
   let foundUser = await User.findById(user);
 
-  foundUser.unreadMessages = foundUser.unreadMessages.filter(
+  foundUser.temporaryMessages = foundUser.temporaryMessages.filter(
     (m: any) => m.user !== id
   );
 
