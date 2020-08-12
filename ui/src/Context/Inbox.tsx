@@ -12,7 +12,7 @@ export const InboxContext = createContext<any>(undefined);
 
 export function InboxProvider({ children }: Props) {
   const { contacts, add, getIDs } = useContext(ContactsContext);
-  const { setMessages, messages } = useContext(MessagesContext);
+  const { setMessages } = useContext(MessagesContext);
   const [requests, setRequests] = useState<any>([]);
   const [unread, setUnread] = useState<any>([]);
   const { user } = useContext(UserContext);
@@ -38,7 +38,7 @@ export function InboxProvider({ children }: Props) {
       if (newContacts.length > 0) {
         setRequests(reqs);
       }
-      client.post("/expiremessages", { id: user._id });
+      client.post("/expiremessages", { id: user._id, new: newContacts });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

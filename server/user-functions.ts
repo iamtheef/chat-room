@@ -50,6 +50,7 @@ export const expireMessages = async (req: Request, res: Response) => {
     res.send(true);
     return;
   }
+
   res.send(false);
 };
 

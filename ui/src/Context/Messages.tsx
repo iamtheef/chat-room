@@ -48,6 +48,7 @@ export function MessagesProvider({ children }: Props) {
     if (contacts.length && !messages) {
       initMessages();
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contacts]);
   return (

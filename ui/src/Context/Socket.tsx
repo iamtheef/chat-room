@@ -26,7 +26,7 @@ export function SocketProvider({ children }: Props) {
         if (requests.map((r: any) => r.id).indexOf(msg.sender) < 0) {
           setRequests((prev: any) => [...prev, { username, id: sender }]);
         }
-        client.post("storemessage", { id: user._id, msg });
+        client.post("/storemessage", { id: user._id, msg });
         return;
       }
 
@@ -46,6 +46,9 @@ export function SocketProvider({ children }: Props) {
         }
       }
     });
+    return () => {
+      socket.off("message");
+    };
   };
 
   const listenForSubmit = (e: any) => {

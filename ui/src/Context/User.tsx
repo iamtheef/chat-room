@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import User from "../../../server/models/User";
 import { client } from "../Utils/AxiosClient";
-import { Form } from "../types";
+import { Form } from "../../../types";
 import io from "socket.io-client";
 
 type Props = {
