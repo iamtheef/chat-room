@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { ContactsContext } from "../Context/Contacts";
+import { MessagesContext } from "../Context/Messages";
 import { UserContext } from "../Context/User";
 import { client } from "../Utils/AxiosClient";
 
@@ -10,10 +11,11 @@ type Props = {
 export const InboxContext = createContext<any>(undefined);
 
 export function InboxProvider({ children }: Props) {
+  const { contacts, add, getIDs } = useContext(ContactsContext);
+  const { setMessages, messages } = useContext(MessagesContext);
   const [requests, setRequests] = useState<any>([]);
   const [unread, setUnread] = useState<any>([]);
   const { user } = useContext(UserContext);
-  const { contacts, add, getIDs } = useContext(ContactsContext);
 
   useEffect(() => {
     if (user && user.unreadMessages.length && !!contacts) {
@@ -36,6 +38,7 @@ export function InboxProvider({ children }: Props) {
       if (newContacts.length > 0) {
         setRequests(reqs);
       }
+      client.post("/expiremessages", { id: user._id });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,6 +47,16 @@ export function InboxProvider({ children }: Props) {
   const acceptRequest = async (id: string) => {
     add(id);
     setRequests((prev: any) => prev.filter((r: any) => r.id !== id));
+    client
+      .post("/getmessagesbythiscontact", { me: user._id, contact: id })
+      .then((res) => {
+        setMessages((prev: any) => ({
+          ...prev,
+          [id]: [...res.data],
+        }));
+
+        setUnread((prev: any) => [...prev, id]);
+      });
   };
 
   const removeRequest = async (id: string) => {

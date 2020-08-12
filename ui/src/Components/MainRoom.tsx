@@ -1,8 +1,8 @@
 import React, { FC, useContext } from "react";
+import { Redirect, MemoryRouter, Route } from "react-router-dom";
 import { Search } from "./Search";
 import { Contacts } from "./Contacts";
 import { ChatWindow } from "./ChatWindow";
-import { Redirect, MemoryRouter, Route } from "react-router-dom";
 import { UserContext } from "../Context/User";
 import { BlankChat } from "./BlankChat";
 import { InboxIcon } from "./InboxIcon";

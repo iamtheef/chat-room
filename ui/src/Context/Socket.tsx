@@ -3,6 +3,7 @@ import { Message } from "../../../types";
 import { UserContext } from "../Context/User";
 import { MessagesContext } from "../Context/Messages";
 import { InboxContext } from "../Context/Inbox";
+import { client } from "../Utils/AxiosClient";
 
 export const SocketContext = createContext<any>(undefined);
 
@@ -14,7 +15,7 @@ export function SocketProvider({ children }: Props) {
   const { currentChat, setMessages, isItNewContact } = useContext(
     MessagesContext
   );
-  const { setUnread, setRequests } = useContext(InboxContext);
+  const { setUnread, setRequests, requests } = useContext(InboxContext);
   const { user, socket } = useContext(UserContext);
 
   const listener = () => {
@@ -22,7 +23,10 @@ export function SocketProvider({ children }: Props) {
       const { username, message, sender, receiver } = msg;
 
       if (isItNewContact(msg)) {
-        setRequests((prev: any) => [...prev, { username, id: sender }]);
+        if (requests.map((r: any) => r.id).indexOf(msg.sender) < 0) {
+          setRequests((prev: any) => [...prev, { username, id: sender }]);
+        }
+        client.post("storemessage", { id: user._id, msg });
         return;
       }
 

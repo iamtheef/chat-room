@@ -2,7 +2,6 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { ContactsContext } from "../Context/Contacts";
 import { UserContext } from "../Context/User";
 import User from "../../../server/models/User";
-import { client } from "../Utils/AxiosClient";
 import { Message, Messages } from "../../../types";
 
 type Props = {
@@ -33,8 +32,6 @@ export function MessagesProvider({ children }: Props) {
           mes[msg.sender!] = [{ username: msg.username, message: msg.message }];
         }
       });
-
-      await client.post("/expiremessages", { id: user._id });
     }
     setMessages({ ...mes });
   };
@@ -61,6 +58,7 @@ export function MessagesProvider({ children }: Props) {
         messages,
         setMessages,
         isItNewContact,
+        initMessages,
       }}
     >
       {children}

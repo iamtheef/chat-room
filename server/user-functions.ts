@@ -52,3 +52,32 @@ export const expireMessages = async (req: Request, res: Response) => {
   }
   res.send(false);
 };
+
+export const storeMessage = async (req: Request, res: Response) => {
+  const { id, msg } = req.body;
+  const user = await User.findById(id);
+  if (user) {
+    user.unreadMessages.push(msg);
+    await user.save();
+    res.send(true);
+    return;
+  }
+  res.send(false);
+};
+
+export const getMessagesByThisContact = async (req: Request, res: Response) => {
+  const { me, contact } = req.body;
+  const user = await User.findById(me);
+  if (user) {
+    let foundMessages = user.unreadMessages.filter(
+      (msg: any) => msg.sender === contact
+    );
+    user.unreadMessages = user.unreadMessages.filter(
+      (msg: any) => msg.sender !== contact
+    );
+    await user.save();
+    res.send(foundMessages);
+    return;
+  }
+  res.send([]);
+};

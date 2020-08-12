@@ -58,12 +58,17 @@ export const removeRequest = async (req: Request, res: Response) => {
   const { user, id } = req.body;
   let foundUser = await User.findById(user);
 
-  let filteredMessages = foundUser.unreadMessages.filter(
+  foundUser.unreadMessages = foundUser.unreadMessages.filter(
     (m: any) => m.user !== id
   );
-  foundUser.unreadMessages = filteredMessages;
+
   foundUser.save().then((saved) => {
-    res.send(true);
+    if (!!saved) {
+      res.send(true);
+      return;
+    }
+    res.send(false);
+    return;
   });
 
   return;

@@ -3,14 +3,12 @@ import User from "../../../server/models/User";
 import { client } from "../Utils/AxiosClient";
 import { UserContext } from "../Context/User";
 import { ContactsContext } from "../Context/Contacts";
-import { MessagesContext } from "../Context/Messages";
 
 export const Search: FC = () => {
   const { user } = useContext(UserContext);
   const { add } = useContext(ContactsContext);
   const [results, setResults] = useState<any>([]);
   const [term, setTerm] = useState<string>("");
-  const { setCurrentChat } = useContext(MessagesContext);
 
   useEffect(() => {
     if (term === "" || term.length <= 3) {
@@ -34,12 +32,11 @@ export const Search: FC = () => {
           {results.map((u: typeof User) => (
             <li key={`${u._id}`} className="list-item">
               <img className="user-icon" src={`${u.avatar}`} alt="user img" />
-              <p>{user.username}</p>
+              <p>{u.username}</p>
               <button
                 onClick={() => {
                   if (user._id !== u._id) {
                     add(u._id.toString());
-                    setCurrentChat(u._id.toString());
                   } else {
                     alert("ELLIOT, IS IT YOU?");
                   }

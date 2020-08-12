@@ -1,5 +1,11 @@
 import { connectDB, app } from "./configuration";
-import { register, login, expireMessages } from "./user-functions";
+import {
+  register,
+  login,
+  expireMessages,
+  storeMessage,
+  getMessagesByThisContact,
+} from "./user-functions";
 import {
   add,
   remove,
@@ -48,4 +54,12 @@ app.post("/expiremessages", (req, res) => {
 
 app.post("/removerequest", (req, res) => {
   removeRequest(req, res);
+});
+
+app.post("/storemessage", (req, res) => {
+  storeMessage(req, res);
+});
+
+app.post("/getmessagesbythiscontact", (req, res) => {
+  getMessagesByThisContact(req, res);
 });
