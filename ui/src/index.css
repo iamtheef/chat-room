@@ -261,3 +261,15 @@ code {
 .info h2 {
   margin-bottom: 60px;
 }
+
+.welcome {
+  margin-top: 0px;
+  color: white;
+  margin-bottom: 0px;
+}
+
+.icons {
+  display: flex;
+  margin-left: 1300px;
+  margin-top: 10px;
+}

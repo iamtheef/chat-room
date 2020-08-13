@@ -7,6 +7,7 @@ import { UserContext } from "../Context/User";
 import { BlankChat } from "./Assets/BlankChat";
 import { InboxIcon } from "./Assets/InboxIcon";
 import { InfoIcon } from "./Assets/InfoIcon";
+import { SettingsIcon } from "./Assets/SettingsIcon";
 
 export const MainRoom: FC = () => {
   const { user } = useContext(UserContext);
@@ -15,10 +16,13 @@ export const MainRoom: FC = () => {
     <div className="main-room">
       {user ? (
         <div>
-          <h1 style={{ marginTop: "0px", color: "white", marginBottom: "0px" }}>
-            WELCOME {user.username}
-          </h1>
-          <InfoIcon />
+          <div>
+            <h1 className="welcome">WELCOME {user.username}</h1>
+            <div className="icons">
+              <InfoIcon />
+              <SettingsIcon />
+            </div>
+          </div>
           <InboxIcon />
           <Search />
           <MemoryRouter>

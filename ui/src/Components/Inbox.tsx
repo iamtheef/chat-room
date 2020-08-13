@@ -9,6 +9,7 @@ export const Inbox: FC = () => {
 
   return (
     <div>
+      <h2 className="quote">INBOX</h2>
       <Link to="/main">
         {" "}
         <p className="quote">{"<<<"} </p>{" "}

@@ -5,6 +5,7 @@ import { Landing } from "./Components/Landing";
 import { MainRoom } from "./Components/MainRoom";
 import { Inbox } from "./Components/Inbox";
 import { Info } from "./Components/Info";
+import { Settings } from "./Components/Settings";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/main" component={MainRoom} />
           <Route exact path="/inbox" component={Inbox} />
           <Route exact path="/info" component={Info} />
+          <Route exact path="/settings" component={Settings} />
         </Switch>
       </HashRouter>
     </div>

@@ -18,7 +18,12 @@ export const ChatWindow: FC = () => {
 
         <Panel />
       </div>
-      <input className="editor" onKeyDown={(e) => listenForSubmit(e)} />
+      <input
+        className="editor"
+        autoFocus
+        id="edi"
+        onKeyDown={(e) => listenForSubmit(e)}
+      />
     </div>
   );
 };

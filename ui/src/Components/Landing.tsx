@@ -31,7 +31,9 @@ export const Landing: FC = () => {
         <h3>
           <i className="quote">May all you type dissapear</i>
         </h3>
-        <InfoIcon />
+        <div className="icons">
+          <InfoIcon />
+        </div>
         <div className="forms">
           <div className={`form-wrapper ${view === "login" && "is-active"}`}>
             <button

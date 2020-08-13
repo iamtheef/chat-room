@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import User from "../../../server/models/User";
 import { client } from "../Utils/AxiosClient";
 import { Form } from "../../../types";
@@ -14,6 +15,7 @@ export function UserProvider({ children }: Props) {
   const [user, setUser] = useState<typeof User | undefined>(undefined);
 
   const socket = io("http://localhost:4000");
+  const history = useHistory();
 
   function submit(e: any, form: Form, view: string) {
     e.preventDefault();
@@ -40,7 +42,7 @@ export function UserProvider({ children }: Props) {
   }, [user, socket]);
 
   return (
-    <UserContext.Provider value={{ user, setUser, submit, socket }}>
+    <UserContext.Provider value={{ user, setUser, submit, socket, history }}>
       {children}
     </UserContext.Provider>
   );

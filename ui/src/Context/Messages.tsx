@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { ContactsContext } from "../Context/Contacts";
 import { UserContext } from "../Context/User";
 import User from "../../../server/models/User";
@@ -16,6 +17,8 @@ export function MessagesProvider({ children }: Props) {
   const [messages, setMessages] = useState<Messages>();
   const { contacts, getIDs } = useContext(ContactsContext);
   const { user } = useContext(UserContext);
+  const [cmdPressed, setCmdPressed] = useState(false);
+  const history = useHistory();
 
   let mes: Messages = {};
 
@@ -60,6 +63,23 @@ export function MessagesProvider({ children }: Props) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contacts]);
+
+  useEffect(() => {
+    document.addEventListener("keyup", (e) => {
+      if (e.keyCode === 91) {
+        setCmdPressed(false);
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.keyCode === 91) {
+        setCmdPressed(true);
+      }
+      if (cmdPressed && e.keyCode === 75) {
+        initMessages();
+      }
+    });
+  });
   return (
     <MessagesContext.Provider
       value={{

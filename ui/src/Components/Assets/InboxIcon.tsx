@@ -6,12 +6,14 @@ export const InboxIcon: FC = () => {
   const { requests } = useContext(InboxContext);
 
   return (
-    <Link to="/inbox">
-      <div>
-        <div className={`inbox ${requests.length > 0 && "has-inbox"}`}>
-          {requests.length && <div>{requests.length}</div>}
+    <div style={{ maxWidth: "10px" }}>
+      <Link to="/inbox">
+        <div>
+          <div className={`inbox ${requests.length > 0 && "has-inbox"}`}>
+            {requests.length && <div>{requests.length}</div>}
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
