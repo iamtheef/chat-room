@@ -4,6 +4,7 @@ import { UserContext } from "../Context/User";
 import { MessagesContext } from "../Context/Messages";
 import { InboxContext } from "../Context/Inbox";
 import { client } from "../Utils/AxiosClient";
+import { encrypt } from "../Utils/crypto";
 
 export const SocketContext = createContext<any>(undefined);
 
@@ -20,7 +21,7 @@ export function SocketProvider({ children }: Props) {
 
   const listener = () => {
     socket.on("message", (msg: Message) => {
-      const { username, message, sender, receiver } = msg;
+      const { username, sender, receiver, message } = msg;
 
       if (isItNewContact(msg)) {
         if (requests.map((r: any) => r.id).indexOf(msg.sender) < 0) {
@@ -53,12 +54,14 @@ export function SocketProvider({ children }: Props) {
 
   const listenForSubmit = (e: any) => {
     if (e.keyCode === 13) {
-      socket.emit("incoming", {
-        message: e.target.value,
+      let msg: Message = {
+        message: encrypt(e.target.value),
         username: user.username,
         receiver: currentChat,
         sender: user._id,
-      });
+      };
+
+      socket.emit("incoming", msg);
       e.target.value = "";
       e.target.focus();
     }

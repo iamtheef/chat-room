@@ -3,7 +3,6 @@ import { MessagesContext } from "../Context/Messages";
 import { ContactsContext } from "../Context/Contacts";
 import { SocketContext } from "../Context/Socket";
 import { Panel } from "./Assets/Panel";
-import { AdminIcon } from "./Assets/AdminIcon";
 
 export const ChatWindow: FC = () => {
   const { currentChat } = useContext(MessagesContext);

@@ -14,7 +14,7 @@ export const Info: FC = () => {
         <div>
           <h3>Functionality of the app</h3>
           <p>
-            Your messages are encrypted with h265 algorithm when sent, decrypted
+            Your messages are encrypted with AES algorithm when sent, decrypted
             only when arrived and salted with a secret key. They are transfered
             throught https protocol and are cleared after every log out or
             refresh of the page. You don't need to logout becuase practically

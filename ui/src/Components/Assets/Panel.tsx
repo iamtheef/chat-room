@@ -1,6 +1,7 @@
 import React, { FC, useContext } from "react";
 import { MessagesContext } from "../../Context/Messages";
 import { Message } from "../../../../types";
+import { decrypt } from "../../Utils/crypto";
 
 export const Panel: FC = () => {
   const { currentChat, messages } = useContext(MessagesContext);
@@ -21,7 +22,7 @@ export const Panel: FC = () => {
                   messages[currentChat][i - 1].username) && (
                 <h4>{msg.username}</h4>
               )}
-              <p className="message">{msg.message}</p>
+              <p className="message">{decrypt(msg.message)}</p>
             </li>
           ))}
         <div id="last" style={{ marginTop: "20px" }}></div>
