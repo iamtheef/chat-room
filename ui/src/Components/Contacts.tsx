@@ -11,7 +11,9 @@ export const Contacts: FC = () => {
   const { contacts, getContacts, remove, onUsers, setOnUsers } = useContext(
     ContactsContext
   );
-  const { currentChat, setCurrentChat } = useContext(MessagesContext);
+  const { currentChat, setCurrentChat, clearThisContact } = useContext(
+    MessagesContext
+  );
   const { unread, setUnread } = useContext(InboxContext);
   const { socket } = useContext(UserContext);
   const history = useHistory();
@@ -71,6 +73,7 @@ export const Contacts: FC = () => {
                 onClick={(e) => {
                   e.stopPropagation();
                   remove(contact._id);
+                  clearThisContact(contact._id);
                   history.push(`/`);
                 }}
               >

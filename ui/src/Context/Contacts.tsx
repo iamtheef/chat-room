@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext } from "react";
-import User from "../../../server/models/User";
 import { client } from "../Utils/AxiosClient";
 import { UserContext } from "../Context/User";
+import User from "../../../server/models/User";
 
 export const ContactsContext = createContext<any>(undefined);
 
@@ -39,9 +39,10 @@ export function ContactsProvider({ children }: Props) {
     const { _id } = user;
     client.post("/remove", { _id, id }).then((contacts) => {
       if (contacts.data) {
-        user.unreadMessages = user.unreadMessages.filter(
-          (m: any) => m.sender !== id
-        );
+        // user.unreadMessages = user.unreadMessages.filter(
+        //   (m: any) => m.sender !== id
+        // );
+
         getContacts();
       }
     });

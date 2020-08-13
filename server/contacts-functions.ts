@@ -42,7 +42,8 @@ export const getContacts = (req: Request, res: Response) => {
   User.findById(id)
     .populate("contacts")
     .then((user) => {
-      res.send({ contacts: user.contacts, status: getOnlineUsers() });
+      console.log(user.contacts);
+      res.send({ contacts: user.contacts.reverse(), status: getOnlineUsers() });
     })
     .catch((e) => {
       res.send([]);

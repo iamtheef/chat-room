@@ -12,7 +12,7 @@ export const InboxContext = createContext<any>(undefined);
 
 export function InboxProvider({ children }: Props) {
   const { contacts, add } = useContext(ContactsContext);
-  const { setMessages } = useContext(MessagesContext);
+  const { setMessages, hasUnreadMessages } = useContext(MessagesContext);
   const [requests, setRequests] = useState<any>([]);
   const [unread, setUnread] = useState<any>([]);
   const { user } = useContext(UserContext);
@@ -38,6 +38,14 @@ export function InboxProvider({ children }: Props) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contacts]);
+
+  useEffect(() => {
+    if (user && user.unreadMessages.length > 0) {
+      setUnread((prev: any) => [...prev, ...hasUnreadMessages()]);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const acceptRequest = async (id: string) => {
     add(id);

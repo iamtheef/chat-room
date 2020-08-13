@@ -38,6 +38,17 @@ export function MessagesProvider({ children }: Props) {
     client.post("/expire_messages", { id: user._id });
   };
 
+  const hasUnreadMessages = () => {
+    if (user) {
+      let hasFrom = user.unreadMessages.map((m: Message) => m.sender);
+      return [...new Set(hasFrom)];
+    }
+  };
+
+  const clearThisContact = (id: string) => {
+    setMessages((prev: any) => ({ ...prev, [id]: [] }));
+  };
+
   const isItNewContact = (msg: Message) => {
     return getIDs().indexOf(msg.sender) < 0 && msg.sender !== user._id;
   };
@@ -58,6 +69,8 @@ export function MessagesProvider({ children }: Props) {
         setMessages,
         isItNewContact,
         initMessages,
+        hasUnreadMessages,
+        clearThisContact,
       }}
     >
       {children}
