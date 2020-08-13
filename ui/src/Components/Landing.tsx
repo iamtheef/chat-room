@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../Context/User";
 import { Form } from "../../../types";
+import { InfoIcon } from "./Assets/InfoIcon";
 
 export const Landing: FC = () => {
   const { submit, user } = useContext(UserContext);
@@ -30,6 +31,7 @@ export const Landing: FC = () => {
         <h3>
           <i className="quote">May all you type dissapear</i>
         </h3>
+        <InfoIcon />
         <div className="forms">
           <div className={`form-wrapper ${view === "login" && "is-active"}`}>
             <button
@@ -59,7 +61,16 @@ export const Landing: FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <Link to="/">Forgot your password?</Link>
+                <Link
+                  to="#"
+                  onClick={() =>
+                    alert(
+                      "If you forgot your password please contact us in *iamtheef_th@protonmail.com*"
+                    )
+                  }
+                >
+                  Forgot your password?
+                </Link>
               </fieldset>
               <button
                 className="btn-login"

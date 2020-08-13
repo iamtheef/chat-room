@@ -4,6 +4,7 @@ import { Route, Switch, HashRouter, Redirect } from "react-router-dom";
 import { Landing } from "./Components/Landing";
 import { MainRoom } from "./Components/MainRoom";
 import { Inbox } from "./Components/Inbox";
+import { Info } from "./Components/Info";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route exact path="/login" component={Landing} />
           <Route exact path="/main" component={MainRoom} />
           <Route exact path="/inbox" component={Inbox} />
+          <Route exact path="/info" component={Info} />
         </Switch>
       </HashRouter>
     </div>

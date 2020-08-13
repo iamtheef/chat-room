@@ -245,3 +245,19 @@ code {
 .isCurrentChat {
   background-color: rgb(189, 199, 199);
 }
+
+.info {
+  font-family: "Courier New", Courier, monospace;
+  color: white;
+  margin-top: 40px;
+}
+
+.info p {
+  margin-bottom: 50px;
+  margin-top: -20px;
+  font-size: 20px;
+}
+
+.info h2 {
+  margin-bottom: 60px;
+}
