@@ -5,7 +5,8 @@
     "server": "npm start --prefix server",
     "client": "npm start --prefix ui",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "prod": "concurrently \"npm run prod --prefix server \" \"npm run build --prefix ui\""
+    "prod-client": "npm run build --prefix ui",
+    "start": "concurrently \"npm run server\" \"npm run prod-client\" \"npm run client\""
   },
   "dependencies": {
     "@types/validator": "^13.1.0",
