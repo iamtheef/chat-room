@@ -1,7 +1,7 @@
 import User from "./models/User";
 import { Request, Response } from "express";
 import { compare, hashSync } from "bcryptjs";
-import { validateAccount } from "./utils/isAccountValid";
+import { validateAccount, isPasswordValid } from "./utils/isAccountValid";
 
 export const register = async (req: Request, res: Response) => {
   let { msg, logged } = await validateAccount(req);
@@ -11,8 +11,8 @@ export const register = async (req: Request, res: Response) => {
   }
 
   new User({
-    ...req.body,
-    password: hashSync(req.body.password, 10),
+    ...req.body.form,
+    password: hashSync(req.body.form.password, 10),
   })
     .save()
     .then((user) => {
@@ -26,7 +26,7 @@ export const register = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body.form;
   const user = await User.findOne({ email: email });
   if (user) {
     if (await compare(password, user.password)) {
@@ -42,6 +42,40 @@ export const login = async (req: Request, res: Response) => {
   } else {
     res.send({ logged: false, msg: "WRONG CREDENTIALS" });
   }
+};
+
+export const update = async (req: Request, res: Response) => {
+  const { form, id } = req.body;
+  let user = await User.findById(id);
+
+  if (!user) {
+    res.send({ logged: false, msg: "SOMETHING WENT WRONG" });
+    return;
+  }
+  let passwordMatch = await compare(form.password, user.password);
+  if (!passwordMatch) {
+    res.send({ logged: false, msg: "WRONG PASSWORD" });
+    return;
+  }
+
+  if (!!form.username) {
+    user.username = form.username;
+  }
+  if (!!form.newPassword) {
+    if (!isPasswordValid(form.newPassword)) {
+      res.send({ logged: false, msg: "WEAK PASSWORD" });
+      return;
+    }
+
+    user.password = hashSync(req.body.form.newPassword, 10);
+  }
+  await user.save();
+
+  const { username, _id, unreadMessages, temporaryMessages } = user;
+  res.send({
+    logged: true,
+    user: { username, _id, unreadMessages, temporaryMessages },
+  });
 };
 
 export const expireMessages = async (req: Request, res: Response) => {

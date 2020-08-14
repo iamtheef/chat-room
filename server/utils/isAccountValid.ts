@@ -2,9 +2,10 @@ import User from "../models/User";
 import validator from "validator";
 import { Request } from "express";
 
+const specialChars = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
 export const validateAccount = async (req: Request) => {
-  const { email, password, username } = req.body;
-  const specialChars = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  const { email, password, username } = req.body.form;
 
   if (!email) {
     return { logged: false, msg: "EMAIL IS REQUIRED" };
@@ -24,11 +25,7 @@ export const validateAccount = async (req: Request) => {
       return { logged: false, msg: "EMAIL IS NOT VALID" };
     }
 
-    if (
-      password.length < 7 ||
-      validator.isAlphanumeric(password) ||
-      !specialChars.test(password)
-    ) {
+    if (!isPasswordValid(password)) {
       return {
         logged: false,
         msg:
@@ -38,4 +35,12 @@ export const validateAccount = async (req: Request) => {
       return { logged: true };
     }
   }
+};
+
+export const isPasswordValid = (password: string) => {
+  return !(
+    password.length < 7 ||
+    validator.isAlphanumeric(password) ||
+    !specialChars.test(password)
+  );
 };

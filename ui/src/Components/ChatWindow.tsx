@@ -20,7 +20,6 @@ export const ChatWindow: FC = () => {
       </div>
       <input
         className="editor"
-        autoFocus
         id="edi"
         onKeyDown={(e) => listenForSubmit(e)}
       />

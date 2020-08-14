@@ -2,6 +2,7 @@ import { connectDB, app } from "./configuration";
 import {
   register,
   login,
+  update,
   expireMessages,
   storeMessage,
   getMessagesByThisContact,
@@ -30,6 +31,10 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   login(req, res);
+});
+
+app.post("/update", async (req, res) => {
+  update(req, res);
 });
 
 app.post("/search", async (req, res) => {

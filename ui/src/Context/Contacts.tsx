@@ -39,10 +39,6 @@ export function ContactsProvider({ children }: Props) {
     const { _id } = user;
     client.post("/remove", { _id, id }).then((contacts) => {
       if (contacts.data) {
-        // user.unreadMessages = user.unreadMessages.filter(
-        //   (m: any) => m.sender !== id
-        // );
-
         getContacts();
       }
     });

@@ -14,3 +14,9 @@ export interface Form {
   password: string;
   username?: string;
 }
+
+export interface ProfileUpdatePayload {
+  username?: string;
+  password: string;
+  newPassword?: string;
+}

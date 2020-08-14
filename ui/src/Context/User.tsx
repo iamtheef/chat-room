@@ -17,20 +17,23 @@ export function UserProvider({ children }: Props) {
   const socket = io("http://localhost:4000");
   const history = useHistory();
 
-  function submit(e: any, form: Form, view: string) {
+  async function submit(e: any, form: Form, view: string, id: string) {
+    var done = false;
     e.preventDefault();
-    client
-      .post(`/${view}`, form)
-      .then((res) => {
-        if (res.data.logged) {
-          setUser(res.data.user);
-        } else {
-          alert(res.data.msg);
-        }
-      })
-      .catch((e) => {
-        alert("there was something wrong!\n" + e);
-      });
+    try {
+      let res = await client.post(`/${view}`, { form, id });
+      done = res.data.logged;
+      if (res.data.logged) {
+        setUser(res.data.user);
+      } else {
+        alert(res.data.msg);
+      }
+    } catch (e) {
+      alert("Something went wrong \n");
+      done = false;
+    }
+
+    return done;
   }
 
   useEffect(() => {

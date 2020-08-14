@@ -273,3 +273,8 @@ code {
   margin-left: 1300px;
   margin-top: 10px;
 }
+
+.settings-field {
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
