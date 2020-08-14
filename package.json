@@ -10,7 +10,7 @@
     "client": "npm start --prefix ui",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "prod-client": "npm run build --prefix ui",
-    "start": "concurrently \"npm run server\" \"npm run prod-client\" \"npm run client\""
+    "start": "npm run client"
   },
   "dependencies": {
     "@types/validator": "^13.1.0",
