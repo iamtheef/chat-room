@@ -1,6 +1,10 @@
 {
   "name": "chat-room",
   "version": "0.1.0",
+  "engines": {
+    "node": "12.18.0",
+    "npm": "6.14.5"
+  },
   "scripts": {
     "server": "npm start --prefix server",
     "client": "npm start --prefix ui",
