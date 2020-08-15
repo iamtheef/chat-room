@@ -1,4 +1,5 @@
 import { connectDB, app } from "./configuration";
+const express = require("express");
 import {
   register,
   login,
@@ -19,6 +20,10 @@ import { makeNewSocket } from "./webSocket-server";
 (() => {
   connectDB();
   makeNewSocket();
+
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../ui/build"));
+  }
 })();
 
 app.get("/", (req, res) => {
