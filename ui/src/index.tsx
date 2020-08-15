@@ -8,20 +8,23 @@ import { ContactsProvider } from "./Context/Contacts";
 import { MessagesProvider } from "./Context/Messages";
 import { InboxProvider } from "./Context/Inbox";
 import { SocketProvider } from "./Context/Socket";
+import { AstralModeProvider } from "./Context/AstralMode";
 
 ReactDOM.render(
   <React.StrictMode>
-    <UserProvider>
-      <ContactsProvider>
-        <MessagesProvider>
-          <InboxProvider>
-            <SocketProvider>
-              <App />
-            </SocketProvider>
-          </InboxProvider>
-        </MessagesProvider>
-      </ContactsProvider>
-    </UserProvider>
+    <AstralModeProvider>
+      <UserProvider>
+        <ContactsProvider>
+          <MessagesProvider>
+            <InboxProvider>
+              <SocketProvider>
+                <App />
+              </SocketProvider>
+            </InboxProvider>
+          </MessagesProvider>
+        </ContactsProvider>
+      </UserProvider>
+    </AstralModeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

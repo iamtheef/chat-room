@@ -1,18 +1,8 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useContext } from "react";
+import { AstralModeContext } from "../../Context/AstralMode";
 
 export const AstralModeButton: FC = () => {
-  const [astralMode, setAstralMode] = useState(false);
-
-  useEffect(() => {
-    if (astralMode) {
-      document.body.style.backgroundImage =
-        "url('https://media.giphy.com/media/9bTjZrytydVRK/source.gif')";
-    } else {
-      document.body.style.backgroundImage =
-        "url('https://allpossibleworlds.de/wp-content/themes/apw/img/bg.gif')";
-    }
-  }, [astralMode]);
-
+  const { setAstralMode, astralMode } = useContext(AstralModeContext);
   return (
     <label
       className="switch"
