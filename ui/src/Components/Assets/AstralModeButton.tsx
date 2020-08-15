@@ -8,7 +8,7 @@ export const AstralModeButton: FC = () => {
       className="switch"
       style={{ marginLeft: "-50px", marginTop: "-60px", marginBottom: "-5px" }}
     >
-      <input type="checkbox" />
+      <input type="checkbox" checked={astralMode} />
       <span
         className="slider"
         onClick={() => setAstralMode(!astralMode)}

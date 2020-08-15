@@ -18,7 +18,7 @@ export const Info: FC = () => {
             only when arrived and salted with a secret key. They are transfered
             throught https protocol and are cleared after every logout or
             refresh of the page. You don't need to logout because practically
-            you never get logged in. Everything is loaded to a temporary state
+            you never get logged in. Everything is loaded in a temporary state
             in your browser tab and nothing gets stored to the server
             permanently. When the receiver is offline the messages are only then
             stored in the database temporarely and they are cleared immediatelly
