@@ -2,7 +2,7 @@ import * as mongoose from "mongoose";
 import * as cors from "cors";
 import * as bodyParser from "body-parser";
 
-const PORT = process.env.PORT || 4000;
+export const PORT = process.env.PORT || 4000;
 export const app = require("express")();
 export const server = app.listen(PORT, () => {
   console.log("server is running on ", PORT);
