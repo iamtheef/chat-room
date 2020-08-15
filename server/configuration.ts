@@ -5,7 +5,7 @@ import * as bodyParser from "body-parser";
 export const PORT = process.env.PORT || 4000;
 export const app = require("express")();
 export const server = app.listen(PORT, () => {
-  console.log("server is running on ", PORT);
+  console.log("server is running on %d", PORT);
 });
 
 require("dotenv").config();
