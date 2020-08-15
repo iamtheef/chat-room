@@ -1,5 +1,5 @@
 import axios from "axios";
-import baseUrl from "./Env";
+import { baseUrl } from "./Env";
 
 export const client = axios.create({
   baseURL: baseUrl,
