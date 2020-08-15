@@ -4,6 +4,7 @@ import { client } from "../Utils/AxiosClient";
 import { UserContext } from "../Context/User";
 import { ContactsContext } from "../Context/Contacts";
 import { AdminIcon } from "./Assets/AdminIcon";
+import { throwSelfContactError } from "../Errors";
 
 export const Search: FC = () => {
   const { user } = useContext(UserContext);
@@ -40,7 +41,7 @@ export const Search: FC = () => {
                   if (user._id !== u._id) {
                     add(u._id.toString());
                   } else {
-                    alert("ELLIOT, IS IT YOU?");
+                    throwSelfContactError();
                   }
                 }}
               >

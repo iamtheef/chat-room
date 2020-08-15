@@ -7,6 +7,7 @@ import { UserContext } from "../Context/User";
 import { BlankChat } from "./Assets/BlankChat";
 import { InboxIcon } from "./Assets/InboxIcon";
 import { InfoIcon } from "./Assets/InfoIcon";
+import { AstralModeButton } from "./Assets/AstralModeButton";
 import { SettingsIcon } from "./Assets/SettingsIcon";
 
 export const MainRoom: FC = () => {
@@ -19,6 +20,7 @@ export const MainRoom: FC = () => {
           <div>
             <h1 className="welcome">WELCOME {user.username}</h1>
             <div className="icons">
+              <AstralModeButton />
               <InfoIcon />
               <SettingsIcon />
             </div>

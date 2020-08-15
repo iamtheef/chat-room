@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../Context/User";
 import { Form } from "../../../types";
 import { InfoIcon } from "./Assets/InfoIcon";
+import { forgotPasswordError } from "../Errors";
 
 export const Landing: FC = () => {
   const { submit, user } = useContext(UserContext);
@@ -63,14 +64,7 @@ export const Landing: FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <Link
-                  to="#"
-                  onClick={() =>
-                    alert(
-                      "If you forgot your password please contact us in *iamtheef_th@protonmail.com*"
-                    )
-                  }
-                >
+                <Link to="#" onClick={() => forgotPasswordError()}>
                   Forgot your password?
                 </Link>
               </fieldset>

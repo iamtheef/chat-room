@@ -2,11 +2,16 @@ import User from "./models/User";
 import { Request, Response } from "express";
 import { compare, hashSync } from "bcryptjs";
 import { validateAccount, isPasswordValid } from "./utils/isAccountValid";
+import * as errors from "./Errors";
 
 export const register = async (req: Request, res: Response) => {
   let { msg, logged } = await validateAccount(req);
   if (!logged) {
     res.send({ msg, logged });
+    return;
+  }
+  if (!!(await User.findOne({ email: req.body.form.email }))) {
+    res.send(errors.alreadySignedError());
     return;
   }
 
@@ -37,10 +42,10 @@ export const login = async (req: Request, res: Response) => {
       });
       return;
     } else {
-      res.send({ logged: false, msg: "WRONG CREDENTIALS" });
+      res.send(errors.wrongCredentialsError());
     }
   } else {
-    res.send({ logged: false, msg: "WRONG CREDENTIALS" });
+    res.send(errors.wrongCredentialsError());
   }
 };
 
@@ -49,12 +54,12 @@ export const update = async (req: Request, res: Response) => {
   let user = await User.findById(id);
 
   if (!user) {
-    res.send({ logged: false, msg: "SOMETHING WENT WRONG" });
+    res.send(errors.unexpectedError());
     return;
   }
   let passwordMatch = await compare(form.password, user.password);
   if (!passwordMatch) {
-    res.send({ logged: false, msg: "WRONG PASSWORD" });
+    res.send(errors.wrongPasswordError());
     return;
   }
 
@@ -63,7 +68,7 @@ export const update = async (req: Request, res: Response) => {
   }
   if (!!form.newPassword) {
     if (!isPasswordValid(form.newPassword)) {
-      res.send({ logged: false, msg: "WEAK PASSWORD" });
+      res.send(errors.weakPasswordError());
       return;
     }
 

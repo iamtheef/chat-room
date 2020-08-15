@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext } from "react";
 import { client } from "../Utils/AxiosClient";
 import { UserContext } from "../Context/User";
 import User from "../../../server/models/User";
+import { throwDuplicateContactError } from "../Errors";
 
 export const ContactsContext = createContext<any>(undefined);
 
@@ -25,7 +26,7 @@ export function ContactsProvider({ children }: Props) {
     const { _id } = user;
     let contactIDs = contacts.map((c: any) => c._id);
     if (!(contactIDs.indexOf(add) < 0)) {
-      alert("DUPLICATE CONTACTS ARE NOT ALLOWED");
+      throwDuplicateContactError();
     } else {
       client.post("/add", { _id, add }).then((contacts) => {
         if (contacts.data) {
