@@ -14,7 +14,7 @@ export const UserContext = createContext<any>(undefined);
 export function UserProvider({ children }: Props) {
   const [user, setUser] = useState<typeof User | undefined>(undefined);
 
-  const socket = io("http://localhost:4000");
+  const socket = io(`${process.env.baseURL || "http://localhost:4000"}`);
   const history = useHistory();
 
   async function submit(e: any, form: Form, view: string, id: string) {
