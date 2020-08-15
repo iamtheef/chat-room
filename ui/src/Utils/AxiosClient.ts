@@ -1,8 +1,7 @@
 import axios from "axios";
-import { baseUrl } from "./Env";
 
 export const client = axios.create({
-  baseURL: baseUrl,
+  baseURL: process.env.REACT_APP_baseURL,
   timeout: 10000,
   headers: { "X-Custom-Header": "foobar" },
 });

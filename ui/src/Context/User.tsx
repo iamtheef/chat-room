@@ -4,7 +4,6 @@ import User from "../../../server/models/User";
 import { client } from "../Utils/AxiosClient";
 import { Form } from "../../../types";
 import io from "socket.io-client";
-import { baseUrl } from "../Utils/Env";
 
 type Props = {
   children: React.ReactNode;
@@ -15,8 +14,7 @@ export const UserContext = createContext<any>(undefined);
 export function UserProvider({ children }: Props) {
   const [user, setUser] = useState<typeof User | undefined>(undefined);
 
-  const socket = io(baseUrl!);
-  console.log("socket created @ ", `${baseUrl}`);
+  const socket = io(process.env.REACT_APP_baseURL!);
   const history = useHistory();
 
   async function submit(e: any, form: Form, view: string, id: string) {
