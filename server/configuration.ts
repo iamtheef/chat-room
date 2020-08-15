@@ -21,7 +21,7 @@ export const connectDB = () => {
     .catch((e) => console.error(e));
 };
 
-app.use(cors({ origin: [/localhost/], credentials: true }));
+app.use(cors({ credentials: true }));
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
