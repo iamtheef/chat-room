@@ -20,9 +20,9 @@ export const MainRoom: FC = () => {
           <div>
             <h1 className="welcome">WELCOME {user.username}</h1>
             <div className="icons">
-              <AstralModeButton />
               <InfoIcon />
               <SettingsIcon />
+              <AstralModeButton />
             </div>
           </div>
           <InboxIcon />
