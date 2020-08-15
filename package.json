@@ -9,9 +9,10 @@
   "scripts": {
     "server": "npm run dev --prefix server",
     "client": "npm start --prefix ui",
+    "install-server": "cd server && yarn install",
     "install-client": "cd ui && yarn install",
     "build": "cd ui && npm run build",
-    "heroku-postbuild": "npm run install-client && npm run build",
+    "heroku-postbuild": "install-server && npm run install-client && npm run build",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "npm start --prefix server"
   },
