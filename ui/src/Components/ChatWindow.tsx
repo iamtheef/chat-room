@@ -22,6 +22,7 @@ export const ChatWindow: FC = () => {
         className="editor"
         id="edi"
         onKeyDown={(e) => listenForSubmit(e)}
+        autoComplete="off"
       />
     </div>
   );
