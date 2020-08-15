@@ -3,7 +3,7 @@ import axios from "axios";
 let baseUrl = `http://localhost:4000`;
 
 if (process.env.NODE_ENV === "production") {
-  baseUrl = `https://iamtheef-chat-room.herokuapp.com`;
+  baseUrl = process.env.baseURL!;
 }
 
 export const client = axios.create({
