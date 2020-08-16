@@ -1,6 +1,9 @@
 import * as mongoose from "mongoose";
 import * as cors from "cors";
 import * as bodyParser from "body-parser";
+import compression from "compression";
+import helmet from "helmet";
+import morgan from "morgan";
 
 export const PORT = process.env.PORT || 4000;
 export const app = require("express")();
@@ -22,6 +25,9 @@ export const connectDB = () => {
 };
 
 app.use(cors({ credentials: true }));
+app.use(helmet());
+app.use(morgan("short"));
+app.use(compression());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
