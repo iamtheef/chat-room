@@ -35,7 +35,7 @@ export const Landing: FC = () => {
         <div className="icons">
           <InfoIcon />
         </div>
-        <div className="forms">
+        <div className="forms" style={{ marginTop: "-40px" }}>
           <div className={`form-wrapper ${view === "login" && "is-active"}`}>
             <button
               type="button"
