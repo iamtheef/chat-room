@@ -2,7 +2,7 @@ import * as mongoose from "mongoose";
 import * as cors from "cors";
 import * as bodyParser from "body-parser";
 import * as morgan from "morgan";
-import * as compression from 'compression'l
+import * as compression from "compression";
 
 export const PORT = process.env.PORT || 4000;
 export const app = require("express")();
@@ -25,7 +25,7 @@ export const connectDB = () => {
 
 app.use(cors({ credentials: true }));
 app.use(morgan("short"));
-app.use(compression())
+app.use(compression());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
