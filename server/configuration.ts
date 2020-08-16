@@ -1,9 +1,9 @@
 import * as mongoose from "mongoose";
 import * as cors from "cors";
 import * as bodyParser from "body-parser";
-import compression from "compression";
-import helmet from "helmet";
-import morgan from "morgan";
+import * as compression from "compression";
+import * as helmet from "helmet";
+import * as morgan from "morgan";
 
 export const PORT = process.env.PORT || 4000;
 export const app = require("express")();

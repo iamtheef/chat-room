@@ -1,8 +1,10 @@
 {
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/compression": "^1.7.0",
     "@types/cors": "^2.8.6",
     "@types/mongoose": "^5.7.32",
+    "@types/morgan": "^1.9.1",
     "@types/node": "^14.0.24",
     "@types/socket.io": "^2.1.10",
     "bcryptjs": "^2.4.3",

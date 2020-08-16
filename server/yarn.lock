@@ -22,6 +22,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/compression@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@types/compression/-/compression-1.7.0.tgz#8dc2a56604873cf0dd4e746d9ae4d31ae77b2390"
+  integrity sha512-3LzWUM+3k3XdWOUk/RO+uSjv7YWOatYq2QADJntK1pjkk4DfVP0KrIEPDnXRJxAAGKe0VpIPRmlINLDuCedZWw==
+  dependencies:
+    "@types/express" "*"
+
 "@types/connect@*":
   version "3.4.33"
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.33.tgz#31610c901eca573b8713c3330abc6e6b9f588546"
@@ -81,6 +88,13 @@
   integrity sha512-o1qijffQipTtYMJEYF8BOd+D8fy6ZGtGKP654udSEp6wysU3r1O2T8wHSP9QIC//QwQgKQGolu2y9vc9KXaq4w==
   dependencies:
     "@types/mongodb" "*"
+    "@types/node" "*"
+
+"@types/morgan@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@types/morgan/-/morgan-1.9.1.tgz#6457872df95647c1dbc6b3741e8146b71ece74bf"
+  integrity sha512-2j5IKrgJpEP6xw/uiVb2Xfga0W0sSVD9JP9t7EZLvpBENdB0OKgcnoKS8IsjNeNnZ/86robdZ61Orl0QCFGOXg==
+  dependencies:
     "@types/node" "*"
 
 "@types/node@*", "@types/node@^14.0.24":
