@@ -45,10 +45,6 @@ export function ContactsProvider({ children }: Props) {
     });
   };
 
-  const focusOnEditor = () => {
-    document.getElementById("edi")?.focus();
-  };
-
   const getIDs = () => {
     return contacts.map((c: any) => c._id);
   };
@@ -64,7 +60,6 @@ export function ContactsProvider({ children }: Props) {
         onUsers,
         setOnUsers,
         getIDs,
-        focusOnEditor,
       }}
     >
       {children}

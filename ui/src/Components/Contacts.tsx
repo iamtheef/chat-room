@@ -8,17 +8,15 @@ import { useHistory } from "react-router-dom";
 import { AdminIcon } from "./Assets/AdminIcon";
 
 export const Contacts: FC = () => {
-  const {
-    contacts,
-    getContacts,
-    remove,
-    onUsers,
-    setOnUsers,
-    focusOnEditor,
-  } = useContext(ContactsContext);
-  const { currentChat, setCurrentChat, clearThisContact } = useContext(
-    MessagesContext
+  const { contacts, getContacts, remove, onUsers, setOnUsers } = useContext(
+    ContactsContext
   );
+  const {
+    currentChat,
+    setCurrentChat,
+    clearThisContact,
+    focusOnEditor,
+  } = useContext(MessagesContext);
   const { unread, setUnread } = useContext(InboxContext);
   const { socket } = useContext(UserContext);
   const history = useHistory();

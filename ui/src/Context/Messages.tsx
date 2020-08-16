@@ -54,6 +54,10 @@ export function MessagesProvider({ children }: Props) {
     return getIDs().indexOf(msg.sender) < 0 && msg.sender !== user._id;
   };
 
+  const focusOnEditor = () => {
+    document.getElementById("edi")?.focus();
+  };
+
   useEffect(() => {
     if (contacts.length && !messages) {
       initMessages();
@@ -90,6 +94,7 @@ export function MessagesProvider({ children }: Props) {
         initMessages,
         hasUnreadMessages,
         clearThisContact,
+        focusOnEditor,
       }}
     >
       {children}

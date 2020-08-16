@@ -20,5 +20,8 @@
     "@types/validator": "^13.1.0",
     "concurrently": "5.2.0",
     "serialize-javascript": "^4.0.0"
+  },
+  "comments": {
+    "to-deploy-to-heroku": "commit changes && git push heroku master"
   }
 }
