@@ -2,6 +2,7 @@ import React, { FC, useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { UserContext } from "../Context/User";
 import { ProfileUpdatePayload } from "../../../types";
+import { DeleteAccount } from "./Assets/DeleteAcount";
 
 export const Settings: FC = () => {
   const { user, submit } = useContext(UserContext);
@@ -72,6 +73,7 @@ export const Settings: FC = () => {
       <div>
         <button onClick={(e) => handleSubmit(e)}>Submit</button>
       </div>
+      <DeleteAccount />
     </div>
   ) : (
     <Redirect to="login" />

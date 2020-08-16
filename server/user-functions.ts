@@ -22,8 +22,11 @@ export const register = async (req: Request, res: Response) => {
     .save()
     .then((user) => {
       if (user) {
-        const { username, _id, unreadMessages } = user;
-        res.send({ logged: true, user: { username, _id, unreadMessages } });
+        const { username, _id, unreadMessages, temporaryMessages } = user;
+        res.send({
+          logged: true,
+          user: { username, _id, unreadMessages, temporaryMessages },
+        });
         return;
       }
     })
@@ -81,6 +84,25 @@ export const update = async (req: Request, res: Response) => {
     logged: true,
     user: { username, _id, unreadMessages, temporaryMessages },
   });
+};
+
+export const deleteAccount = async (req: Request, res: Response) => {
+  const { id, password } = req.body;
+  const user = await User.findById(id);
+  if (user) {
+    let match = await compare(password, user.password);
+    if (match) {
+      await user.remove();
+      res.send(true);
+      return;
+    } else {
+      res.send(false);
+      return;
+    }
+  } else {
+    res.send(false);
+    return;
+  }
 };
 
 export const expireMessages = async (req: Request, res: Response) => {

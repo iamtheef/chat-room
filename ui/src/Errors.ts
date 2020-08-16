@@ -12,6 +12,10 @@ export const throwDuplicateContactError = () => {
   alert("DUPLICATE CONTACTS ARE NOT ALLOWED");
 };
 
+export const throwWrongPasswordError = () => {
+  alert("INCORRECT PASSWORD");
+};
+
 export const throwUnexpectedError = () => {
   alert("Something went wrong \n");
 };

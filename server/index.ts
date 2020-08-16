@@ -4,6 +4,7 @@ import {
   register,
   login,
   update,
+  deleteAccount,
   expireMessages,
   storeMessage,
   getMessagesByThisContact,
@@ -40,6 +41,10 @@ app.post("/login", async (req, res) => {
 
 app.post("/update", async (req, res) => {
   update(req, res);
+});
+
+app.post("/delete_account", async (req, res) => {
+  deleteAccount(req, res);
 });
 
 app.post("/search", async (req, res) => {

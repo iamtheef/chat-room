@@ -12,19 +12,19 @@ import { AstralModeProvider } from "./Context/AstralMode";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AstralModeProvider>
-      <UserProvider>
-        <ContactsProvider>
-          <MessagesProvider>
-            <InboxProvider>
-              <SocketProvider>
+    <UserProvider>
+      <ContactsProvider>
+        <MessagesProvider>
+          <InboxProvider>
+            <SocketProvider>
+              <AstralModeProvider>
                 <App />
-              </SocketProvider>
-            </InboxProvider>
-          </MessagesProvider>
-        </ContactsProvider>
-      </UserProvider>
-    </AstralModeProvider>
+              </AstralModeProvider>
+            </SocketProvider>
+          </InboxProvider>
+        </MessagesProvider>
+      </ContactsProvider>
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
