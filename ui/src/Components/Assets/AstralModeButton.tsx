@@ -3,6 +3,7 @@ import { AstralModeContext } from "../../Context/AstralMode";
 
 export const AstralModeButton: FC = () => {
   const { setAstralMode, astralMode } = useContext(AstralModeContext);
+
   return (
     <label
       className="switch"

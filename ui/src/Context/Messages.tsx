@@ -36,7 +36,17 @@ export function MessagesProvider({ children }: Props) {
       });
     }
     setMessages({ ...mes });
-    client.post("/expire_messages", { id: user._id });
+
+    if (!cmdPressed) {
+      client
+        .post("/expire_messages", { id: user._id })
+        .then((mes) => {
+          console.log(mes);
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    }
   };
 
   const hasUnreadMessages = () => {
@@ -79,10 +89,15 @@ export function MessagesProvider({ children }: Props) {
         setCmdPressed(true);
       }
       if (cmdPressed && e.keyCode === 75) {
-        initMessages();
+        contacts.map(
+          (c: typeof User) => (mes[c._id.toString()] = [] as Message[])
+        );
+        setMessages({ ...mes });
       }
     });
-  });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setCmdPressed, cmdPressed]);
   return (
     <MessagesContext.Provider
       value={{
