@@ -25,7 +25,10 @@ export const Panel: FC = () => {
               <p className="message">{decrypt(msg.message)}</p>
             </li>
           ))}
-        <div id="last" style={{ marginTop: "20px" }}></div>
+        <div
+          id="last"
+          style={{ paddingBottom: "10px", paddingTop: "5px" }}
+        ></div>
       </ul>
     </div>
   );
