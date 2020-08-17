@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useEffect } from "react";
 import { Redirect, MemoryRouter, Route } from "react-router-dom";
 import { Search } from "./Search";
 import { Contacts } from "./Contacts";
@@ -9,9 +9,21 @@ import { InboxIcon } from "./Assets/InboxIcon";
 import { InfoIcon } from "./Assets/InfoIcon";
 import { AstralModeButton } from "./Assets/AstralModeButton";
 import { SettingsIcon } from "./Assets/SettingsIcon";
+import { SocketContext } from "../Context/Socket";
 
 export const MainRoom: FC = () => {
   const { user } = useContext(UserContext);
+
+  const { listener } = useContext(SocketContext);
+  const { socket } = useContext(UserContext);
+
+  useEffect(() => {
+    listener();
+
+    return () => {
+      socket.off("message");
+    };
+  }, [socket, listener]);
 
   return (
     <div className="main-room">

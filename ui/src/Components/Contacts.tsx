@@ -16,6 +16,7 @@ export const Contacts: FC = () => {
     setCurrentChat,
     clearThisContact,
     focusOnEditor,
+    autoScroll,
   } = useContext(MessagesContext);
   const { unread, setUnread } = useContext(InboxContext);
   const { socket } = useContext(UserContext);
@@ -53,6 +54,7 @@ export const Contacts: FC = () => {
                   prev.filter((m: any) => m !== contact._id)
                 );
                 focusOnEditor();
+                autoScroll();
               }}
             >
               <img

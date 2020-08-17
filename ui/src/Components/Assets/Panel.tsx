@@ -6,11 +6,6 @@ import { decrypt } from "../../Utils/crypto";
 export const Panel: FC = () => {
   const { currentChat, messages } = useContext(MessagesContext);
 
-  const last = document.getElementById("last");
-  if (last) {
-    last.scrollIntoView();
-  }
-
   return (
     <div className="main-room">
       <ul style={{ listStyleType: "none" }}>

@@ -40,9 +40,7 @@ export function MessagesProvider({ children }: Props) {
     if (!cmdPressed) {
       client
         .post("/expire_messages", { id: user._id })
-        .then((mes) => {
-          console.log(mes);
-        })
+        .then((mes) => {})
         .catch((e) => {
           alert(e);
         });
@@ -66,6 +64,10 @@ export function MessagesProvider({ children }: Props) {
 
   const focusOnEditor = () => {
     document.getElementById("edi")?.focus();
+  };
+
+  const autoScroll = () => {
+    document.getElementById("last")?.scrollIntoView();
   };
 
   useEffect(() => {
@@ -110,6 +112,7 @@ export function MessagesProvider({ children }: Props) {
         hasUnreadMessages,
         clearThisContact,
         focusOnEditor,
+        autoScroll,
       }}
     >
       {children}

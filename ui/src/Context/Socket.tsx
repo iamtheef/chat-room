@@ -46,6 +46,7 @@ export function SocketProvider({ children }: Props) {
         if (currentChat !== sender) {
           setUnread((prev: any) => [...prev, sender]);
         }
+        return;
       }
     });
     return () => {
