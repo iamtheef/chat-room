@@ -5,6 +5,7 @@ import { MessagesContext } from "../Context/Messages";
 import { InboxContext } from "../Context/Inbox";
 import { client } from "../Utils/AxiosClient";
 import { encrypt } from "../Utils/crypto";
+import * as e from "../Errors";
 import moment from "moment";
 
 export const SocketContext = createContext<any>(undefined);
@@ -29,7 +30,11 @@ export function SocketProvider({ children }: Props) {
           setRequests((prev: any) => [...prev, { username, id: sender }]);
         }
 
-        client.post("/store_message", { id: user._id, msg, sent });
+        client
+          .post("/store_message", { id: user._id, msg, sent })
+          .catch((err) => {
+            if (!!err) e.throwMessageNotSentError();
+          });
         return;
       }
 

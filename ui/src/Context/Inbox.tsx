@@ -3,6 +3,7 @@ import { ContactsContext } from "../Context/Contacts";
 import { MessagesContext } from "../Context/Messages";
 import { UserContext } from "../Context/User";
 import { client } from "../Utils/AxiosClient";
+import * as e from "../Errors";
 
 type Props = {
   children: React.ReactNode;
@@ -62,18 +63,26 @@ export function InboxProvider({ children }: Props) {
         user.temporaryMessages = user.temporaryMessages.filter(
           (m: any) => m.sender !== id
         );
+      })
+      .catch((err) => {
+        if (!!err) e.throwUnexpectedError();
       });
   };
 
   const removeRequest = async (id: string) => {
-    await client.post("/remove_request", { user: user._id, id }).then((res) => {
-      if (res.data) {
-        user.temporaryMessages = user.temporaryMessages.filter(
-          (m: any) => m.sender !== id
-        );
-        setRequests((prev: any) => prev.filter((r: any) => r.id !== id));
-      }
-    });
+    await client
+      .post("/remove_request", { user: user._id, id })
+      .then((res) => {
+        if (res.data) {
+          user.temporaryMessages = user.temporaryMessages.filter(
+            (m: any) => m.sender !== id
+          );
+          setRequests((prev: any) => prev.filter((r: any) => r.id !== id));
+        }
+      })
+      .catch((err) => {
+        if (!!err) e.throwUnexpectedError();
+      });
   };
 
   return (

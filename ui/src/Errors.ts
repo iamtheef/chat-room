@@ -20,6 +20,14 @@ export const throwUnexpectedError = () => {
   alert("Something went wrong \n");
 };
 
+export const throwFailedToClearMessagesError = () => {
+  alert("MESSAGES FAILED TO CLEAR");
+};
+
+export const throwMessageNotSentError = () => {
+  alert("YOUR MESSAGE WAS NOT SENT");
+};
+
 export const throwError = (error: string) => {
   alert(error);
 };

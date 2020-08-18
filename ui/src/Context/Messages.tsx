@@ -4,6 +4,7 @@ import { UserContext } from "../Context/User";
 import User from "../../../server/models/User";
 import { Message, Messages } from "../../../types";
 import { client } from "../Utils/AxiosClient";
+import * as e from "../Errors";
 
 type Props = {
   children: React.ReactNode;
@@ -40,12 +41,9 @@ export function MessagesProvider({ children }: Props) {
     setMessages({ ...mes });
 
     if (!cmdPressed) {
-      client
-        .post("/expire_messages", { id: user._id })
-        .then((mes) => {})
-        .catch((e) => {
-          alert(e);
-        });
+      client.post("/expire_messages", { id: user._id }).catch((err) => {
+        if (!!err) e.throwFailedToClearMessagesError();
+      });
     }
   };
 
