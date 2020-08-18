@@ -10,7 +10,6 @@ export const ChatWindow: FC = () => {
   const { listenForSubmit } = useContext(SocketContext);
   const { contacts } = useContext(ContactsContext);
 
-  autoScroll();
   return (
     <div>
       <div className="chatwin">
