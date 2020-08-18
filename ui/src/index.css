@@ -340,3 +340,19 @@ input:checked + .slider:before {
   border: 1px solid whitesmoke;
   border-radius: 2px;
 }
+
+.msg-header {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+.senter {
+  margin-bottom: 25px;
+}
+
+.msg-time {
+  color: rgb(189, 153, 129);
+  margin-top: 25px;
+  margin-left: 20px;
+  font-size: 15px;
+}

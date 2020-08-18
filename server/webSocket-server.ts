@@ -23,13 +23,20 @@ export const makeNewSocket = () => {
     });
 
     socket.on("incoming", async (msg: Message) => {
-      const { message, receiver, sender, username } = msg;
+      const { message, receiver, sender, username, sent } = msg;
+
       //
       // receiver is online
       let user = users.find((user) => user.dbID === receiver);
       if (user) {
         socket.join(user.id);
-        io.to(user.id).emit("message", { username, message, sender, receiver });
+        io.to(user.id).emit("message", {
+          username,
+          message,
+          sender,
+          receiver,
+          sent,
+        });
       } else {
         //
         // receiver is offline
@@ -39,19 +46,27 @@ export const makeNewSocket = () => {
             username,
             sender,
             message,
+            sent,
           });
         } else {
           user.unreadMessages.push({
             username,
             sender,
             message,
+            sent,
           });
         }
 
         await user.save();
 
         socket.join(user.id);
-        io.to(user.id).emit("message", { username, message, sender, receiver });
+        io.to(user.id).emit("message", {
+          username,
+          message,
+          sender,
+          receiver,
+          sent,
+        });
       }
     });
 

@@ -3,6 +3,7 @@ export interface Message {
   username?: string;
   sender?: string;
   receiver?: string;
+  sent?: string;
 }
 
 export interface Messages {

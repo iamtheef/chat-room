@@ -5,6 +5,7 @@ import { MessagesContext } from "../Context/Messages";
 import { InboxContext } from "../Context/Inbox";
 import { client } from "../Utils/AxiosClient";
 import { encrypt } from "../Utils/crypto";
+import moment from "moment";
 
 export const SocketContext = createContext<any>(undefined);
 
@@ -21,26 +22,26 @@ export function SocketProvider({ children }: Props) {
 
   const listener = () => {
     socket.on("message", (msg: Message) => {
-      const { username, sender, receiver, message } = msg;
+      const { username, sender, receiver, message, sent } = msg;
 
       if (isItNewContact(msg)) {
         if (requests.map((r: any) => r.id).indexOf(msg.sender) < 0) {
           setRequests((prev: any) => [...prev, { username, id: sender }]);
         }
 
-        client.post("/store_message", { id: user._id, msg });
+        client.post("/store_message", { id: user._id, msg, sent });
         return;
       }
 
       if (user._id === sender) {
         setMessages((prev: any) => ({
           ...prev,
-          [receiver!]: [...prev[receiver!], { username, message }],
+          [receiver!]: [...prev[receiver!], { username, message, sent }],
         }));
       } else if (user._id === receiver) {
         setMessages((prev: any) => ({
           ...prev,
-          [sender!]: [...prev[sender!], { username, message }],
+          [sender!]: [...prev[sender!], { username, message, sent }],
         }));
 
         if (currentChat !== sender) {
@@ -61,6 +62,7 @@ export function SocketProvider({ children }: Props) {
         username: user.username,
         receiver: currentChat,
         sender: user._id,
+        sent: moment().calendar(),
       };
 
       socket.emit("incoming", msg);

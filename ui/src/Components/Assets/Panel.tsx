@@ -15,15 +15,15 @@ export const Panel: FC = () => {
               {(i === 0 ||
                 messages[currentChat][i].username !==
                   messages[currentChat][i - 1].username) && (
-                <h4>{msg.username}</h4>
+                <div className="msg-header">
+                  <h4 className="senter">{msg.username}</h4>
+                  <p className="msg-time">{msg.sent}</p>
+                </div>
               )}
               <p className="message">{decrypt(msg.message)}</p>
             </li>
           ))}
-        <div
-          id="last"
-          style={{ paddingBottom: "10px", paddingTop: "5px" }}
-        ></div>
+        <div id="last" style={{ paddingBottom: "25px" }}></div>
       </ul>
     </div>
   );

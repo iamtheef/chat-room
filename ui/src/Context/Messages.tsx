@@ -28,10 +28,12 @@ export function MessagesProvider({ children }: Props) {
         if (mes[msg.sender!]) {
           mes[msg.sender!] = [
             ...mes[msg.sender!],
-            { username: msg.username, message: msg.message },
+            { username: msg.username, message: msg.message, sent: msg.sent },
           ];
         } else {
-          mes[msg.sender!] = [{ username: msg.username, message: msg.message }];
+          mes[msg.sender!] = [
+            { username: msg.username, message: msg.message, sent: msg.sent },
+          ];
         }
       });
     }
