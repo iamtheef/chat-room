@@ -15,7 +15,7 @@ type Props = {
 };
 
 export function SocketProvider({ children }: Props) {
-  const { currentChat, setMessages, isItNewContact } = useContext(
+  const { currentChat, setMessages, isItNewContact, autoScroll } = useContext(
     MessagesContext
   );
   const { setUnread, setRequests, requests } = useContext(InboxContext);
@@ -54,6 +54,7 @@ export function SocketProvider({ children }: Props) {
         }
         return;
       }
+      autoScroll();
     });
     return () => {
       socket.off("message");

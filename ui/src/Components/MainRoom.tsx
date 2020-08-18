@@ -29,13 +29,11 @@ export const MainRoom: FC = () => {
     <div className="main-room">
       {user ? (
         <div>
-          <div>
-            <h1 className="welcome">WELCOME {user.username}</h1>
-            <div className="icons">
-              <InfoIcon />
-              <SettingsIcon />
-              <AstralModeButton />
-            </div>
+          <h1 className="welcome">WELCOME {user.username}</h1>
+          <div className="icons">
+            <InfoIcon />
+            <SettingsIcon />
+            <AstralModeButton />
           </div>
           <InboxIcon />
           <Search />
