@@ -28,7 +28,7 @@ export const remove = async (req: Request, res: Response) => {
   }
   currentUser
     .save()
-    .then((response) => {
+    .then(() => {
       res.send(true);
     })
     .catch((e) => {
@@ -44,7 +44,7 @@ export const getContacts = (req: Request, res: Response) => {
     .then((user) => {
       res.send({ contacts: user.contacts.reverse(), status: getOnlineUsers() });
     })
-    .catch((e) => {
+    .catch(() => {
       res.send([]);
     });
 };
