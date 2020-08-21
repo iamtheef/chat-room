@@ -15,7 +15,11 @@ export const UserContext = createContext<any>(undefined);
 export function UserProvider({ children }: Props) {
   const [user, setUser] = useState<typeof User | undefined>(undefined);
 
-  const socket = io(process.env.REACT_APP_baseURL!);
+  const socket = io(process.env.REACT_APP_baseURL!, {
+    reconnection: true,
+    reconnectionAttempts: Infinity,
+    reconnectionDelay: 1000,
+  });
   const history = useHistory();
 
   async function submit(e: any, form: Form, view: string, id: string) {

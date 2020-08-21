@@ -2,7 +2,7 @@ import { server } from "./configuration";
 import User from "./models/User";
 import { Message } from "../types";
 
-export const io = require("socket.io").listen(server);
+export const io = require("socket.io")(server);
 
 let users = [];
 
