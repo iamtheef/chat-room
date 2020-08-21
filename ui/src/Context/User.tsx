@@ -38,12 +38,14 @@ export function UserProvider({ children }: Props) {
   }
 
   useEffect(() => {
-    if (user) {
+    if (!!user) {
       socket.emit("active", { username: user.username, dbID: user._id });
     } else {
       socket.close();
     }
-  }, [user, socket]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ user, setUser, submit, socket, history }}>

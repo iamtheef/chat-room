@@ -56,13 +56,10 @@ export function SocketProvider({ children }: Props) {
       }
       autoScroll();
     });
-    return () => {
-      socket.off("message");
-    };
   };
 
   const listenForSubmit = (e: any) => {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && e.target.value.length > 0) {
       let msg: Message = {
         message: encrypt(e.target.value),
         username: user.username,

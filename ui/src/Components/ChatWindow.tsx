@@ -6,7 +6,7 @@ import { SocketContext } from "../Context/Socket";
 import { Panel } from "./Assets/Panel";
 
 export const ChatWindow: FC = () => {
-  const { currentChat, autoScroll } = useContext(MessagesContext);
+  const { currentChat } = useContext(MessagesContext);
   const { listenForSubmit } = useContext(SocketContext);
   const { contacts } = useContext(ContactsContext);
 
