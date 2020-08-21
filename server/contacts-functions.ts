@@ -9,11 +9,11 @@ export const add = async (req: Request, res: Response) => {
   currentUser.contacts.push(addUser._id);
   currentUser
     .save()
-    .then((response) => {
+    .then(() => {
       res.send(true);
     })
     .catch((e) => {
-      console.log(e);
+      console.log(e.reason);
       res.send(false);
     });
 };

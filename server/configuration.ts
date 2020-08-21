@@ -4,13 +4,13 @@ import * as bodyParser from "body-parser";
 import * as morgan from "morgan";
 import * as compression from "compression";
 
+require("dotenv").config();
+
 export const PORT = process.env.PORT || 4000;
 export const app = require("express")();
 export const server = app.listen(PORT, () => {
   console.log("server is running on %d", PORT);
 });
-
-require("dotenv").config();
 
 export const connectDB = () => {
   mongoose.set("useCreateIndex", true);
