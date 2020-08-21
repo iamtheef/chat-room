@@ -17,7 +17,6 @@ export function MessagesProvider({ children }: Props) {
   const [messages, setMessages] = useState<Messages>();
   const { contacts, getIDs } = useContext(ContactsContext);
   const { user } = useContext(UserContext);
-  const [cmdPressed, setCmdPressed] = useState(false);
 
   let mes: Messages = {};
 
@@ -40,11 +39,9 @@ export function MessagesProvider({ children }: Props) {
     }
     setMessages({ ...mes });
 
-    if (!cmdPressed) {
-      client.post("/expire_messages", { id: user._id }).catch((err) => {
-        if (!!err) e.throwFailedToClearMessagesError();
-      });
-    }
+    client.post("/expire_messages", { id: user._id }).catch((err) => {
+      if (!!err) e.throwFailedToClearMessagesError();
+    });
   };
 
   const hasUnreadMessages = () => {
@@ -78,28 +75,6 @@ export function MessagesProvider({ children }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contacts]);
 
-  useEffect(() => {
-    // cmd + K to clear all chats function
-    document.addEventListener("keyup", (e) => {
-      if (e.keyCode === 91) {
-        setCmdPressed(false);
-      }
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.keyCode === 91) {
-        setCmdPressed(true);
-      }
-      if (cmdPressed && e.keyCode === 75) {
-        contacts.map(
-          (c: typeof User) => (mes[c._id.toString()] = [] as Message[])
-        );
-        setMessages({ ...mes });
-      }
-    });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setCmdPressed, cmdPressed]);
   return (
     <MessagesContext.Provider
       value={{
