@@ -4,7 +4,7 @@ import User from "../../../server/models/User";
 import { client } from "../Utils/AxiosClient";
 import { Form } from "../../../types";
 import io from "socket.io-client";
-import * as e from "../Errors";
+import * as errors from "../Errors";
 
 type Props = {
   children: React.ReactNode;
@@ -27,10 +27,10 @@ export function UserProvider({ children }: Props) {
       if (res.data.logged) {
         setUser(res.data.user);
       } else {
-        e.throwError(res.data.msg);
+        errors.throwError(res.data.msg);
       }
     } catch (err) {
-      if (!!err) e.throwUnexpectedError();
+      if (!!err) errors.throwUnexpectedError();
       done = false;
     }
 
