@@ -3,6 +3,7 @@ import * as cors from "cors";
 import * as bodyParser from "body-parser";
 import * as morgan from "morgan";
 import * as compression from "compression";
+import getCors from "./utils/getCorsOpts";
 
 require("dotenv").config();
 
@@ -23,14 +24,7 @@ export const connectDB = () => {
     .catch((e) => console.error(e));
 };
 console.log(process.env.REACT_APP_baseURL);
-app.use(
-  cors({
-    origin: process.env.REACT_APP_baseURL,
-    credentials: true,
-    methods: ["GET", "POST"],
-    exposedHeaders: ["Content-Range"],
-  })
-);
+app.use(cors(getCors()));
 app.use(morgan("short"));
 app.use(compression());
 app.use(bodyParser.json());

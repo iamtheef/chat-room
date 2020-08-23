@@ -1,11 +1,5 @@
 import { createSchema, Type, typedModel } from "ts-mongoose";
-const { floor, random } = Math;
-
-const icons = [
-  "https://maxcdn.icons8.com/Share/icon/ios7/Cinema/anonymous_mask1600.png",
-  "https://image.flaticon.com/icons/png/512/99/99618.png",
-  "https://maxcdn.icons8.com/Share/icon/Dusk_Wired/Cinema/anonymous_mask1600.png",
-];
+import getAvatar from "../utils/getAvatar";
 
 const UserSchema = createSchema(
   {
@@ -14,7 +8,7 @@ const UserSchema = createSchema(
     password: Type.string({ required: true }),
     contacts: Type.array({ default: [] }).of(Type.string({ unique: true })),
     date: Type.date({ default: Date.now as any }),
-    avatar: Type.string({ default: icons[floor(random() * icons.length)] }),
+    avatar: Type.string({ default: getAvatar() }),
     isAdmin: Type.boolean({ default: false }),
     unreadMessages: Type.array({ default: [] }).of({}),
     // for general use of the app
