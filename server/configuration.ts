@@ -23,7 +23,7 @@ export const connectDB = () => {
     .then(() => console.log("connected to db"))
     .catch((e) => console.error(e));
 };
-console.log(process.env.REACT_APP_baseURL);
+
 app.use(cors(getCors()));
 app.use(morgan("short"));
 app.use(compression());

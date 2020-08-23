@@ -1,19 +1,19 @@
 const getCors = () => {
-  if (process.env.NODE_ENV === "production") {
-    return {
-      origin: process.env.REACT_APP_baseURL,
-      credentials: true,
-      methods: ["GET", "POST"],
-      exposedHeaders: ["Content-Range"],
-    };
-  } else {
-    return {
-      origin: "*",
-      credentials: true,
-      methods: ["GET", "POST"],
-      exposedHeaders: ["Content-Range"],
-    };
-  }
+  return {
+    origin:
+      process.env.NODE_ENV === "production"
+        ? process.env.REACT_APP_baseURL
+        : "*",
+    credentials: true,
+    methods: ["GET", "POST"],
+    exposedHeaders: ["Content-Range"],
+  };
 };
+console.log(
+  "CORS",
+  getCors(),
+  "isProd : ",
+  process.env.NODE_ENV === "production"
+);
 
 export default getCors;
