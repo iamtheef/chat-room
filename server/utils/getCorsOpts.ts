@@ -9,11 +9,5 @@ const getCors = () => {
     exposedHeaders: ["Content-Range"],
   };
 };
-console.log(
-  "CORS",
-  getCors(),
-  "isProd : ",
-  process.env.NODE_ENV === "production"
-);
 
 export default getCors;
