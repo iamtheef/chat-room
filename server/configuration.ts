@@ -25,7 +25,14 @@ export const connectDB = () => {
     .catch((e) => console.error(e));
 };
 
-app.use(blocker);
+app.use(() => {
+  if (req.headers.referer === process.env.client) {
+    console.log("CAME HERE");
+    next();
+  } else {
+    res.send("FUCK OFF");
+  }
+});
 app.use(cors(getCors()));
 app.use(morgan("short"));
 app.use(compression());
