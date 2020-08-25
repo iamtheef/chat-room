@@ -18,8 +18,8 @@ export function UserProvider({ children }: Props) {
   const socket = io(process.env.REACT_APP_baseURL!, {
     reconnection: true,
     reconnectionAttempts: Infinity,
-    reconnectionDelay: 1000,
   });
+
   const history = useHistory();
 
   async function submit(e: any, form: Form, view: string, id: string) {

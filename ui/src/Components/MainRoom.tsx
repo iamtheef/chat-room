@@ -13,7 +13,6 @@ import { SocketContext } from "../Context/Socket";
 
 export const MainRoom: FC = () => {
   const { user } = useContext(UserContext);
-
   const { listener } = useContext(SocketContext);
   const { socket } = useContext(UserContext);
 
@@ -24,6 +23,12 @@ export const MainRoom: FC = () => {
       socket.off("message");
     };
   }, [socket, listener]);
+
+  useEffect(() => {
+    setInterval(() => {
+      socket.emit("keep");
+    }, 60000); // pings every 2' so the socket stays open
+  }, [socket]);
 
   return (
     <div className="main-room">
