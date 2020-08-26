@@ -5,7 +5,7 @@ const whitelist = [
 const getCors = () => {
   return {
     origin: (origin: string, cb: any) => {
-      if (whitelist.indexOf(origin) !== -1 || origin === undefined) {
+      if (origin !== undefined && whitelist.indexOf(origin) !== -1) {
         cb(null, true);
       } else {
         cb("NOT ALLOWED", false);
