@@ -1,15 +1,14 @@
+const whitelist = [
+  "http://localhost:3000",
+  "https://iamtheef-chat-room.herokuapp.com/",
+];
 const getCors = () => {
   return {
-    origin: (origin: string, cb: any) => {
-      console.log(
-        origin,
-        process.env.REACT_APP_baseURL.toString(),
-        origin === process.env.REACT_APP_baseURL.toString()
-      );
-      if (origin === process.env.REACT_APP_baseURL.toString()) {
-        cb(null, true);
+    origin: (origin: string, callback: any) => {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
       } else {
-        cb("FUCK OFF!", false);
+        callback(null, false);
       }
     },
     credentials: true,
