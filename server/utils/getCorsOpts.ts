@@ -5,6 +5,7 @@ const whitelist = [
 const getCors = () => {
   return {
     origin: (origin: string, callback: any) => {
+      console.log(origin);
       if (whitelist.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
