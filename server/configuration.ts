@@ -4,7 +4,7 @@ import * as bodyParser from "body-parser";
 import * as morgan from "morgan";
 import * as compression from "compression";
 import getCors from "./utils/getCorsOpts";
-import blocker from "./utils/blocker";
+// import blocker from "./utils/blocker";
 
 require("dotenv").config();
 
