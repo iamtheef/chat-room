@@ -1,5 +1,9 @@
 const getCors = () => {
-  return {};
+  return {
+    credentials: true,
+    methods: ["GET", "POST"],
+    origin: process.env.client,
+  };
 };
 
 export default getCors;

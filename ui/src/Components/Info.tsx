@@ -33,6 +33,12 @@ export const Info: FC = () => {
             personal space online for everyone to hangout without being watched
             or listened.
           </p>
+          <h4>DISCLAIMER</h4>
+          <p>
+            USE AT YOUR OWN RISK Please keep in mind that this app isn't
+            operating as a service therefore doesn't provide maximum security in
+            all levels. It was made just for fun
+          </p>
           <h3>Contact </h3>
           <p>
             If you find any bugs or you would like to contribute please email us
