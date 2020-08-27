@@ -4,7 +4,7 @@ import * as bodyParser from "body-parser";
 import * as morgan from "morgan";
 import * as compression from "compression";
 import getCors from "./utils/getCorsOpts";
-// import blocker from "./utils/blocker";
+import blocker from "./utils/blocker";
 
 require("dotenv").config();
 
@@ -25,7 +25,8 @@ export const connectDB = () => {
     .catch((e) => console.error(e));
 };
 
-app.use(cors(getCors()));
+app.use(blocker);
+app.use(cors({ credentials: true, methods: ["GET", "POST"] }));
 app.use(morgan("short"));
 app.use(compression());
 app.use(bodyParser.json());
