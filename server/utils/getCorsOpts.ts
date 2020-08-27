@@ -3,12 +3,7 @@ const whitelist = [
   "https://iamtheef-chat-room.herokuapp.com/",
 ];
 const getCors = () => {
-  return {
-    origin: process.env.REACT_APP_baseURL,
-    credentials: true,
-    methods: ["GET", "POST"],
-    exposedHeaders: ["Content-Range"],
-  };
+  return;
 };
 
 export default getCors;

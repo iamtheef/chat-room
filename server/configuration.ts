@@ -25,7 +25,14 @@ export const connectDB = () => {
     .catch((e) => console.error(e));
 };
 
-app.use(cors(getCors()));
+app.use(
+  cors({
+    origin: process.env.REACT_APP_baseURL,
+    credentials: true,
+    methods: ["GET", "POST"],
+    exposedHeaders: ["Content-Range"],
+  })
+);
 app.use(morgan("short"));
 app.use(compression());
 app.use(bodyParser.json());
