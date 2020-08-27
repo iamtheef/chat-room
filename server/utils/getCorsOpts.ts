@@ -4,6 +4,7 @@ const whitelist = [
 ];
 const getCors = () => {
   return {
+    origin: process.env.REACT_APP_baseURL,
     credentials: true,
     methods: ["GET", "POST"],
     exposedHeaders: ["Content-Range"],
