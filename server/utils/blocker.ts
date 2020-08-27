@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 const blocker = (req: Request, res: Response, next: NextFunction) => {
-  console.log(req);
+  console.log(req.headers);
   let origin = req.headers.referer || req.headers.origin;
 
   if (origin === process.env.client) {
