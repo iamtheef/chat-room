@@ -25,6 +25,7 @@ export const connectDB = () => {
     .catch((e) => console.error(e));
 };
 
+console.log("BASE URL :: ", process.env.REACT_APP_baseURL);
 app.use(
   cors({
     origin: process.env.REACT_APP_baseURL,
