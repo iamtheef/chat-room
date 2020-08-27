@@ -1,9 +1,15 @@
-const whitelist = [
-  "http://localhost:3000",
-  "https://iamtheef-chat-room.herokuapp.com/",
-];
 const getCors = () => {
-  return;
+  return {
+    origin: (origin: string, cb: any) => {
+      if (origin === process.env.client) {
+        cb(null, true);
+      } else {
+        cb(new Error("Allow web by CORS"), false);
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST"],
+  };
 };
 
 export default getCors;

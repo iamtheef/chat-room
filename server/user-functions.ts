@@ -34,6 +34,7 @@ export const register = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
+  console.log("login route :: ", req.headers.origin);
   const { email, password } = req.body.form;
   const user = await User.findOne({ email: email });
   if (user) {
