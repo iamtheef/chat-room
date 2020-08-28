@@ -24,7 +24,6 @@ import { makeNewSocket } from "./webSocket-server";
 
   // serving the app statically
   if (process.env.NODE_ENV === "production") {
-    (<any>window).__REACT_DEVTOOLS_GLOBAL_HOOK__.inject;
     app.use(express.static("../ui/build"));
   }
 })();
