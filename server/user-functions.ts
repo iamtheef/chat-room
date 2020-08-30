@@ -92,6 +92,7 @@ export const deleteAccount = async (req: Request, res: Response) => {
   if (user) {
     let match = await compare(password, user.password);
     if (match) {
+      await expireMessages(req, res);
       await user.remove();
       res.send(true);
       return;

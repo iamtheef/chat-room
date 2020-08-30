@@ -13,7 +13,7 @@ export const Search: FC = () => {
   const [term, setTerm] = useState<string>("");
 
   useEffect(() => {
-    if (term === "" || term.length <= 3) {
+    if (term === "" || term.length < 3) {
       setResults([]);
     } else {
       client.post("/search", { term: term }).then((users) => {
@@ -26,7 +26,11 @@ export const Search: FC = () => {
     <div className="search-box">
       <h2 className="title">Search</h2>
       <form className="search-bar">
-        <input type="search" onChange={(e) => setTerm(e.target.value)} />
+        <input
+          type="search"
+          onChange={(e) => setTerm(e.target.value)}
+          onKeyDown={(e) => undefined}
+        />
       </form>
 
       <div>
