@@ -29,7 +29,7 @@ export const Search: FC = () => {
         <input
           type="search"
           onChange={(e) => setTerm(e.target.value)}
-          onKeyDown={(e) => undefined}
+          onKeyDown={(e) => e.preventDefault()}
         />
       </form>
 
