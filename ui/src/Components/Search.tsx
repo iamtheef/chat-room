@@ -29,7 +29,7 @@ export const Search: FC = () => {
         <input
           type="search"
           onChange={(e) => setTerm(e.target.value)}
-          onKeyDown={(e) => e.preventDefault()}
+          onKeyDown={(e) => e.keyCode === 13 && e.preventDefault()}
         />
       </form>
 
